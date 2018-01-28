@@ -1,9 +1,17 @@
+import pyodbc
 
 d_sensors = {
+    "lat": "0",
+    "lon": "0",
+    "alt": "0",
+    "heading_": "0",
+    "relative_alt": "0",
+    "yaw": "0",
+    "pitch": "0",
+    "roll": "0",
     "groundspeed": "0",
     "home_location": "0",
-    "battery": "0",
-    "last_heartbeat": "0"
+    "last_heartbeat": "0",
 }
 
 
@@ -82,6 +90,19 @@ def init_sql_table(curs, conn, table, sql_dict, is_one_row, history_table=None):
                  )
 
     conn.commit()
+
+
+def connect_to_db():
+    server = 'localhost'
+    username = 'sa'
+    password = 'ItamarOrel1995'
+    db_connection_string = "Driver={FreeTDS};Server=" + server + ";port=1433" + ";UID=" + username + ";PWD=" + password + ";"
+
+    conn = pyodbc.connect(db_connection_string,  autocommit=True)
+    cursor = conn.cursor()
+    init_database(cursor, conn)
+
+    return conn, cursor
 
 
 def update_sql(curs, conn, table, data, is_one_row, sql_dict):

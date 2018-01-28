@@ -37,11 +37,10 @@ class SensorsInfo:
         ## groundspeed of vehicle in meters/second
         self.groundspeed_ = groundspeed
         self.home_location_ = home_location
-        ## battery object containing voltage and current num
-        self.battery_ = battery
         ## Time since last MAVLink heartbeat was received (in seconds).
         #The attribute can be used to monitor link activity and implement script-specific timeout handling.
         self.last_heartbeat_ = last_heartbeat
+
 
 ##
 # @brief class to hold dronekit API vehicle handler and connect to it.
@@ -65,6 +64,7 @@ class Telemetry:
             self.vehicle = connect(connection_string,
                                    wait_ready=True)  # wait_ready flag hold the program until all the parameters have been read
         else:
+            print("Trying to connect")
             self.vehicle = connect('/dev/ttyTHS1', wait_ready=True,
                                    baud=1500000)  # this is the name of the Pixhawk/Telem2 as the TX2 sees it;
             # the same baud rate as configured in the Pixhawk using Mission Planner
@@ -143,7 +143,6 @@ class Telemetry:
                     check_none(self.vehicle.gimbal.roll),
                     check_none(self.vehicle.groundspeed),
                     check_none(self.vehicle.home_location),
-                    check_none(self.vehicle.battery),
                     check_none(self.vehicle.last_heartbeat)
                     )
         return sensors_info
