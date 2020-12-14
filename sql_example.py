@@ -12,7 +12,7 @@ cursor = conn.cursor()
 #insert table once only
 cursor.execute('''
 
-               CREATE TABLE countries
+               CREATE TABLE sensors_table
                (
                Name nvarchar(50),
                population int,
