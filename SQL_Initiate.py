@@ -8,21 +8,25 @@ cursor = conn.cursor()
 
 ## initiation of SQL for Sensors module
 cursor.execute('''
-CREATE TABLE [IF NOT EXISTS] AutoCleanDB.dbo.SensorsInfo
-(
-  [KEY] int NOT NULL PRIMARY KEY CLUSTERED
-  , [GPS] nvarchar(100) NOT NULL
-  , [Battery] varchar(100) NOT NULL
-  , [Last Heartbeat] varchar(100) NOT NULL
-  , [Is Armable?] nvarchar(1024) NOT NULL
-  , [System status] decimal (10,2) NOT NULL
-  , [Mode] decimal (10,2) NOT NULL
-  , [ValidFrom] datetime2 GENERATED ALWAYS AS ROW START
-  , [ValidTo] datetime2 GENERATED ALWAYS AS ROW END
-  , PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)
- )
-WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.EmployeeHistory));
+if not exists (select * from sysobjects where name='SensorsInfo' and xtype='U')
+	CREATE TABLE dbo.SensorsInfo
+	(
+	  [ID] int NOT NULL PRIMARY KEY CLUSTERED
+	  , [GPS] varchar(100) NOT NULL
+	  , [Battery] varchar(200) NOT NULL
+	  , [Last_Heartbeat] numeric(5,3) NOT NULL
+	  , [Is_Armable] varchar(5) NOT NULL
+	  , [System_status] varchar(100) NOT NULL
+	  , [Mode] varchar(100) NOT NULL
+	  , [ValidFrom] datetime2 GENERATED ALWAYS AS ROW START
+	  , [ValidTo] datetime2 GENERATED ALWAYS AS ROW END
+	  , PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)
+	 )
+	WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.SensorsInfoHistory));
+
 ''')
+
+conn.commit()
 
 
 

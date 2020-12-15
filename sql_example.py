@@ -42,3 +42,5 @@ for row in cursor:
 #deleting a table
 cursor.execute('DROP TABLE countries')
 conn.commit()
+
+
