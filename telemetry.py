@@ -60,42 +60,45 @@ class Telemetry:
 
     ## One time read information from the Pixhawk flight computer
     def read_information(self, toPrint=False):
-        self.vehicle.wait_ready(
-            True)  # waits for specified attributes to be populated from the vehicle (values are initially None).
+        self.vehicle.wait_ready(True)  # waits for specified attributes to be populated from the vehicle (values are initially None).
         takeoff_alt_barom = self.vehicle.location.global_frame.alt
 
         if toPrint:
-            print('Autopilot version: {}'.format(self.vehicle.version))
-            print('Home location (GPS, global WGS84): {}'.format(
-                self.vehicle.home_location))  # location is set when the vehicle gets a first good location fix from the GPS
-            print('Mean sea level altitude (barometer) is: {:.3f}m'.format(
-                takeoff_alt_barom))  # can take several seconds longer to populate (taken from the barometer).
-            # Relative to mean sea-level (MSL)
-            print('Current global latitude (GPS, WGS84): {}'.format(
-                self.vehicle.location.global_relative_frame.lat))  # relative to the WGS84 coordinate system # TODO DroneGPSLatitude
-            print('Current global longitude (GPS, WGS84): {}'.format(
-                self.vehicle.location.global_relative_frame.lon))  # relative to the WGS84 coordinate system # TODO DroneGPSLongitude
-            print('Current global altitude (GPS, WGS84): {}'.format(
-                self.vehicle.location.global_relative_frame.alt))  # relative to home location # TODO DroneGPSAltitude
-            print('Current yaw: {:.3f} deg'.format(
-                (180 / math.pi) * self.vehicle.attitude.yaw))  # TODO: is yaw 'DroneCompass'?
-            print('Current heading: {:.3f} deg ([0 360], north is 0)'.format(
-                self.vehicle.heading))  # attitude information  # TODO: is this 'DroneCompass'?
+            # print('Autopilot version: {}'.format(self.vehicle.version))
+            # print('Home location (GPS, global WGS84): {}'.format(
+            #     self.vehicle.home_location))  # location is set when the vehicle gets a first good location fix from the GPS
+            # print('Mean sea level altitude (barometer) is: {:.3f}m'.format(
+            #     takeoff_alt_barom))  # can take several seconds longer to populate (taken from the barometer).
+            # # Relative to mean sea-level (MSL)
+            # print('Current global latitude (GPS, WGS84): {}'.format(
+            #     self.vehicle.location.global_relative_frame.lat))  # relative to the WGS84 coordinate system
+            # print('Current global longitude (GPS, WGS84): {}'.format(
+            #     self.vehicle.location.global_relative_frame.lon))  # relative to the WGS84 coordinate system
+            # print('Current global altitude (GPS, WGS84): {}'.format(
+            #     self.vehicle.location.global_relative_frame.alt))  # relative to home location
+            # print('Current heading: {:.3f} deg ([0 360], north is 0)'.format(
+            #     self.vehicle.heading))  # attitude information  # TODO: is this 'DroneCompass'?
+            # print('Current relative altitude: {:.3f}m (barometer, from home location):'.format(
+            #     self.vehicle.location.global_frame.alt - takeoff_alt_barom))  # relative to takeoff position # TODO PixhawkHeight
+            # print('Current yaw: {:.3f} deg'.format(
+            #     (180 / math.pi) * self.vehicle.attitude.yaw))
+            # print('Current pitch: {:.3f} deg'.format(
+            #     (180 / math.pi) * self.vehicle.attitude.pitch))
+            # print('Current roll: {:.3f} deg'.format(
+            #     (180 / math.pi) * self.vehicle.attitude.roll))
+            # print('{})'.format(
+            #     self.vehicle.gimbal))  # DroneKit-SITL does not automatically add a virtual gimbal, so this attribute will always report None
+            # print('Last Heartbeat: {:.3f}s ago'.format(
+            #     self.vehicle.last_heartbeat))  # when did we receive the last heartbeat
 
-            print('Current relative altitude: {:.3f}m (barometer, from home location):'.format(
-                self.vehicle.location.global_frame.alt - takeoff_alt_barom))  # relative to takeoff position # TODO PixhawkHeight
-            print('{})'.format(
-                self.vehicle.gimbal))  # DroneKit-SITL does not automatically add a virtual gimbal, so this attribute will always report None
-            print('Last Heartbeat: {:.3f}s ago'.format(
-                self.vehicle.last_heartbeat))  # when did we receive the last heartbeat
 
-        return self.vehicle.location.global_relative_frame.lat, self.vehicle.location.global_relative_frame.lon, \
-               self.vehicle.location.global_relative_frame.alt, \
-               self.vehicle.heading, self.vehicle.location.global_frame.alt - takeoff_alt_barom, \
-               check_none(self.vehicle.gimbal.yaw), check_none(self.vehicle.gimbal.pitch), \
-               check_none(self.vehicle.gimbal.roll)
 
-    ## Reads CH8IN (the drone operator can signal the TX2 through this channel). Used for reset the system
+        return check_none(self.vehicle.location.global_relative_frame.lat),check_none(self.vehicle.location.global_relative_frame.lon),
+               check_none(self.vehicle.location.global_relative_frame.alt,check_none(self.vehicle.heading),check_none(self.vehicle.location.global_frame.alt - takeoff_alt_barom),
+               check_none(self.vehicle.gimbal.yaw),check_none(self.vehicle.gimbal.pitch),check_none(self.vehicle.gimbal.roll),check_none(self.vehicle.groundspeed),
+               check_none(self.vehicle.home_location),check_none(self.vehicle.battery),check_none(self.vehicle.last_heartbeat)
+
+            ## Reads CH8IN (the drone operator can signal the TX2 through this channel). Used for reset the system
     def read_channel8(self):
         self.vehicle.wait_ready(True)
         return self.vehicle.channels['8']

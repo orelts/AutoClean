@@ -12,12 +12,13 @@ if not exists (select * from sysobjects where name='SensorsInfo' and xtype='U')
 	CREATE TABLE dbo.SensorsInfo
 	(
 	  [ID] int NOT NULL PRIMARY KEY CLUSTERED
-	  , [GPS] varchar(100) NOT NULL
-	  , [Battery] varchar(200) NOT NULL
-	  , [Last_Heartbeat] numeric(5,3) NOT NULL
-	  , [Is_Armable] varchar(5) NOT NULL
-	  , [System_status] varchar(100) NOT NULL
-	  , [Mode] varchar(100) NOT NULL
+	  , [GPS_lat] numeric(20,15) NOT NULL
+	  , [GPS_lon] numeric(20,15) NOT NULL
+	  , [GPS_alt] numeric(20,15) NOT NULL
+	  , [groundspeed] numeric(6,3) NOT NULL
+	  , [home_location] numeric(6,3) NOT NULL
+	  , [battery] numeric(6,3) NOT NULL
+	  , [last_heartbeat] numeric(6,3) NOT NULL
 	  , [ValidFrom] datetime2 GENERATED ALWAYS AS ROW START
 	  , [ValidTo] datetime2 GENERATED ALWAYS AS ROW END
 	  , PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)

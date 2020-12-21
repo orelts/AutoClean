@@ -15,14 +15,12 @@ cursor = conn.cursor()
 # Import DroneKit-Python
 from dronekit import connect, VehicleMode
 
-
-
 # Connect to the Vehicle.
 print("Connecting to vehicle on: ", (connection_string,))
 vehicle = connect(connection_string, wait_ready=True)
 
 wait_time = 1
-count=0
+count = 0
 while True :
     # Get some vehicle attributes (state)
     print ("Get some vehicle attribute values:" )
@@ -53,7 +51,7 @@ while True :
 
     conn.commit()
     time.sleep(wait_time)
-    count+=1
+    count += 1
     if count == 5 :
         break
 
