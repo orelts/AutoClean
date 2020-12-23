@@ -15,10 +15,10 @@ if not exists (select * from sysobjects where name='SensorsInfo' and xtype='U')
 	CREATE TABLE dbo.SensorsInfo
 	(
 	  [ID] int NOT NULL PRIMARY KEY CLUSTERED
-	  , [groundspeed] numeric(6,3) 
-	  , [home_location] numeric(6,3)
-	  , [battery] numeric(6,3) 
-	  , [last_heartbeat] numeric(6,3) 
+	  , [groundspeed] varchar(100) 
+	  , [home_location] varchar(100) 
+	  , [battery] varchar(100)  
+	  , [last_heartbeat] varchar(100) 
 	  , [ValidFrom] datetime2 GENERATED ALWAYS AS ROW START
 	  , [ValidTo] datetime2 GENERATED ALWAYS AS ROW END
 	  , PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)

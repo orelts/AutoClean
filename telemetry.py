@@ -12,7 +12,24 @@ import math
 def check_none(val):
     if val is None:
         return -1
+    else:
+        return val
 
+## class for sensors info
+class SensorsInfo:
+    def __init__(self, lat, lon, alt, heading, relative_alt, yaw, pitch, roll, groundspeed, home_location, battery, last_heartbeat):
+        self.lat_ = lat
+        self.lon_ = lon
+        self.alt_ = alt
+        self.heading_ = heading
+        self.relative_alt_ = relative_alt
+        self.yaw_ = yaw
+        self.pitch_ = pitch
+        self.roll_ = roll
+        self.groundspeed_ = groundspeed
+        self.home_location_ = home_location
+        self.battery_ = battery
+        self.last_heartbeat_ = last_heartbeat
 
 ## class for connection to vehicle sensors or simulation
 # by connection and read information methods
@@ -91,20 +108,20 @@ class Telemetry:
             # print('Last Heartbeat: {:.3f}s ago'.format(
             #     self.vehicle.last_heartbeat))  # when did we receive the last heartbeat
 
-
-
-        return  self.vehicle.location.global_relative_frame.lat,\
-                self.vehicle.location.global_relative_frame.lon,\
-                self.vehicle.location.global_relative_frame.alt,\
-                check_none(self.vehicle.heading),\
-                check_none(self.vehicle.location.global_frame.alt - takeoff_alt_barom),\
-                check_none(self.vehicle.gimbal.yaw),\
-                check_none(self.vehicle.gimbal.pitch),\
-                check_none(self.vehicle.gimbal.roll),\
-                check_none(self.vehicle.groundspeed),\
-                check_none(self.vehicle.home_location),\
-                check_none(self.vehicle.battery),\
-                check_none(self.vehicle.last_heartbeat)
+        sensors_info = SensorsInfo(check_none(self.vehicle.location.global_relative_frame.lat),
+                    check_none(self.vehicle.location.global_relative_frame.lon),
+                    check_none(self.vehicle.location.global_relative_frame.alt),
+                    check_none(self.vehicle.heading),
+                    check_none(self.vehicle.location.global_frame.alt - takeoff_alt_barom),
+                    check_none(self.vehicle.gimbal.yaw),
+                    check_none(self.vehicle.gimbal.pitch),
+                    check_none(self.vehicle.gimbal.roll),
+                    check_none(self.vehicle.groundspeed),
+                    check_none(self.vehicle.home_location),
+                    check_none(self.vehicle.battery),
+                    check_none(self.vehicle.last_heartbeat)
+                    )
+        return sensors_info
 
             ## Reads CH8IN (the drone operator can signal the TX2 through this channel). Used for reset the system
     def read_channel8(self):
