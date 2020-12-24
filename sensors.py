@@ -1,6 +1,5 @@
-"""
-file: sensors
-reading data out of sensors of the vehicle to sql server
+"""!
+@brief sensors: reading data out of sensors of the vehicle to sql server using telemetry class
 """
 import telemetry
 import time
@@ -9,22 +8,27 @@ import argparse
 import pyodbc
 from statistics import median
 
+## this is the limitiation between two transmitions
 TIME_BETWEEN_MSGS = 1.  # TBM. 1 sec is the maximum allowance
 
 
-## connecting to the SQL Server
+## pyodbc handle for connection to the server
 conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'        #dont change
                       'Server=localhost;'     #server name can be parsed from name in the SQL SERVER MANAGEMENT
                       'Database=AutoCleanDB;'   #name of the database you want to parse from
                       'uid=sa;'
                       'pwd=ItamarOrel2020;')    #dont change
+
+
+## pyodcb handle for accessing and acting on the server
 cursor = conn.cursor()
 
 """
 Parsing given arguments
 """
+## action chooses true or false hardcoded for the arguments of this module
 parser = argparse.ArgumentParser(description="Drone detection project")
-parser.add_argument("--is-drone", action='store_true',
+parser.add_argument("--is-vehicle", action='store_true',
                     help="If a drone is connected to the TX2")
 parser.add_argument("--is_flight", action='store_true',
                     help="If we intend arm the drone (necessary for flight)")
@@ -34,8 +38,12 @@ args = parser.parse_args()
 
 
 
-## function to constantly update sql server with sensors data
-# Send transmission to ground station if TIME_BETWEEN_MSGS seconds have passed since last transmission
+##
+# @brief function to constantly update sql server with sensors data.
+# send transmission to ground station if TIME_BETWEEN_MSGS seconds have passed since last transmission
+# @param lastSendTime the last time transmission was sent
+# @param msdId process id
+# @return
 def periodicSend(lastSendTime, msdId):
     print("Starting {} process".format(multiprocessing.current_process().name))
     TX_Pixhawk_telem_per = telemetry.Telemetry(vehicleConnected)  # can't open SITL simulation on TX2 ARM (only on computer)
@@ -68,13 +76,14 @@ def periodicSend(lastSendTime, msdId):
 
             with msdId.get_lock():  # can be changed also inside 'main'
                 msdId.value = msdId.value + 1
-                print("Periodic MSG, ID {}:".format(msdId.value))
+                # print("Periodic MSG, ID {}:".format(msdId.value))
                 # print("GPS lat (MED): {}, GPS lon (MED): {}, GPS alt (MED): {}, Compass: {}, Height from home (MED): {}, Yaw: {}, Pitch: {}, Roll: {}".format(lat_per_med, lon_per_med,  # for debug
-                #                                                                   alt_per_med, heading_per, height_per_med, cam_yaw_per, cam_pit_per, cam_rol_per))
+                # alt_per_med, heading_per, height_per_med, cam_yaw_per, cam_pit_per, cam_rol_per))
                 
                 sensors_inf = (str(groundspeed_per), str(home_location_per), str(battery_per), str(last_heartbeat_per),
                                 str(groundspeed_per), str(home_location_per), str(battery_per), str(last_heartbeat_per))
-                
+
+                # writing to sql server sensors_inf
                 cursor.execute('''
                 IF NOT EXISTS (SELECT * FROM  dbo.SensorsInfo WHERE ID = 1) 
 
@@ -94,9 +103,8 @@ def periodicSend(lastSendTime, msdId):
         time.sleep(0.1)  # will result the lists to be with a length of 10 numbers (waiting 0.1s and sending each 1s)
 
 
-## sensors main uses multi processing with periodic_send function for constant updating of sql db
 if __name__ == '__main__':
-    vehicleConnected = args.is_drone; flightMode = args.is_flight; inDoor = args.in_door
+    vehicleConnected = args.is_vehicle; flightMode = args.is_flight; inDoor = args.in_door
 
     # initiate contact with flight computer #
     TX_Pixhawk_telem = telemetry.Telemetry(vehicleConnected)  # can't open SITL simulation on TX2 ARM (only on computer)
@@ -105,15 +113,11 @@ if __name__ == '__main__':
     while True:
         reset_value = TX_Pixhawk_telem.read_channel8()  # default value for SITL is 1800
 
-        # shared memory (accessible throughout different processes) #
-        manager = multiprocessing.Manager()
-        shared_yoloOutput = manager.list()
-        shared_lastMsgTime = multiprocessing.Value('d', time.time())  # 'Value' is faster than 'Manager'
+        shared_lastMsgTime = multiprocessing.Value('d', time.time())
         shared_msgId = multiprocessing.Value('i', 0)
 
-        # processes #
+        ## proccess to handle and protect shared memory (accessible throughout different processes)
         periodicProcess = multiprocessing.Process(name="periodic_msg", target=periodicSend, args=[shared_lastMsgTime, shared_msgId])
-
 
         while (not TX_Pixhawk_telem.is_arm()) and flightMode:
             print("In flight mode. Waiting the drone to be armed to continue")
@@ -129,6 +133,7 @@ if __name__ == '__main__':
                 break  # the drone has landed, exiting
 
             try:
+                ## TODO: also need to send to sql from here
                 sensors_info2 = TX_Pixhawk_telem.read_information()
                 lat_cam = sensors_info2.lat_
                 lon_cam = sensors_info2.lon_

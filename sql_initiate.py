@@ -1,10 +1,20 @@
+"""!
+@brief sql_initiate: lazy initializing all the needed sql server tables for the modules interactions.
+sql server is Microsoft SQL server.
+"""
+
 import pyodbc
 
+## pyodbc handle for connection to the server
 conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'        #dont change
                       'Server=localhost;'     #server name can be parsed from name in the SQL SERVER MANAGEMENT
                       'Database=AutoCleanDB;'   #name of the database you want to parse from
                       'uid=sa;'
+
                       'pwd=ItamarOrel2020;')    #dont change
+
+
+## pyodcb handle for accessing and acting on the server
 cursor = conn.cursor()
 
 

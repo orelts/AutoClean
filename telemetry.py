@@ -1,6 +1,6 @@
-"""
-file: telemetry
-class implementation for reading data out of sensors of the vehicle
+"""!
+@brief telemtry: class implementation for reading data out of sensors of the vehicle.
+optional to connect either to sitl simulation or the real vehicle with uart
 """
 
 from dronekit import connect, GPSInfo
@@ -15,35 +15,53 @@ def check_none(val):
     else:
         return val
 
-## class for sensors info
+## class for sensors info which saves the needed telem info.
+# might alter information to suit to our needs
 class SensorsInfo:
     def __init__(self, lat, lon, alt, heading, relative_alt, yaw, pitch, roll, groundspeed, home_location, battery, last_heartbeat):
+        ## latitude of vehcile is relative to the WGS84 coordinate system.
         self.lat_ = lat
+        ## longitude of vehicle is relative to the WGS84 coordinate system.
         self.lon_ = lon
+        ## altitue of vehicle in meters
         self.alt_ = alt
+        ## current heading in degrees - 0..360, where North = 0 (int).
         self.heading_ = heading
         self.relative_alt_ = relative_alt
+        ## yaw of vehicle in Radians
         self.yaw_ = yaw
+        ## pitch of vehicle in Radians
         self.pitch_ = pitch
+        ## roll of vehicle in Radians
         self.roll_ = roll
+        ## groundspeed of vehicle in meters/second
         self.groundspeed_ = groundspeed
         self.home_location_ = home_location
+        ## battery object containing voltage and current num
         self.battery_ = battery
+        ## Time since last MAVLink heartbeat was received (in seconds).
+        #The attribute can be used to monitor link activity and implement script-specific timeout handling.
         self.last_heartbeat_ = last_heartbeat
 
-## class for connection to vehicle sensors or simulation
-# by connection and read information methods
+##
+# @brief class to hold dronekit API vehicle handler and connect to it.
+# this class connect either to vehicle or simulation and implement methods to read info from pixhawk
 class Telemetry:
-    ## Connecting to drone
+    ##
+    # @brief constructor of telemetry which connects to vehicle or simulation
+    # @param vehicle_connected True/False
     def __init__(self, vehicle_connected):
-        self.vehicleConnected = vehicle_connected  # if we're running this on a TX2 connected to the Pixhawk by Uart (Telem2) - put True. Otherwise, False
+        ## holds True if we're running this on a TX2 connected to the Pixhawk by Uart (Telem2) and False otherwise
+        self.vehicleConnected = vehicle_connected
 
         if not self.vehicleConnected:
+            ## simulation handle if we don't use the pixhawk itself
             self.sitl = dronekit_sitl.start_default()  # (sitl.start)
             connection_string = self.sitl.connection_string()  # now we have the connection string (the ip and udp port)
 
         print("Connecting with the drone")
         if not self.vehicleConnected:
+            ## vehicle is a dronekitAPI class for the connection to the vehicle
             self.vehicle = connect(connection_string,
                                    wait_ready=True)  # wait_ready flag hold the program until all the parameters have been read
         else:
@@ -52,7 +70,11 @@ class Telemetry:
             # the same baud rate as configured in the Pixhawk using Mission Planner
         print("Connection success")
 
-    ## Download the vehicle waypoints (commands) to acquire take-off parameters
+
+    ##
+    # @brief Download the vehicle waypoints (commands) to acquire take-off parameters
+    # @param indoor True/False
+    # @return -
     def initialize(self, indoor):
         print("Initialization...")
         if indoor:
@@ -75,7 +97,10 @@ class Telemetry:
             print("Visible satellites: {}".format(num_satellites))
             print("Outdoor initialization completed")
 
-    ## One time read information from the Pixhawk flight computer
+    ##
+    # @brief One time read information from the Pixhawk flight computer
+    # @param toPrint True/False (optional)
+    # @return sensors_info class
     def read_information(self, toPrint=False):
         self.vehicle.wait_ready(True)  # waits for specified attributes to be populated from the vehicle (values are initially None).
         takeoff_alt_barom = self.vehicle.location.global_frame.alt
@@ -123,12 +148,15 @@ class Telemetry:
                     )
         return sensors_info
 
-            ## Reads CH8IN (the drone operator can signal the TX2 through this channel). Used for reset the system
+    ## Reads CH8IN (the drone operator can signal the TX2 through this channel). Used for reset the system
     def read_channel8(self):
         self.vehicle.wait_ready(True)
         return self.vehicle.channels['8']
 
-    ## Reads armed status of the system (arm is ready to flight - motors are running). Disarm is while on ground
+    ##
+    # @brief Reads armed status of the system (arm is ready to flight - motors are running) Disarm is while on ground
+    # @param -
+    # @return vehicle.armed True/False
     def is_arm(self):
         self.vehicle.wait_ready(True)
         return self.vehicle.armed
@@ -146,7 +174,10 @@ class Telemetry:
         # self.vehicle.remove_attribute_listener('global_relative_frame.lat', _param_callback)
     """
 
-    ## Closing interface & simulation (if there is)
+    ##
+    # @brief Closing interface & simulation (if there is)
+    # @param -
+    # @return -
     def close(self):
         self.vehicle.close()
         if not self.vehicleConnected:
@@ -162,3 +193,10 @@ def _param_callback(self, attr_name, value):  # TODO: if not working (do not ref
     # print(value)
     return value
 """
+
+
+# TODO: remove when done presenting it
+##
+# @brief example of an inheritence class to generate UML in doxygen
+class Child(Telemetry):
+    pass
