@@ -9,6 +9,7 @@ we either send msg from tx2 or receive msg from ground station in purpose of dif
 """
 msg_length = 1024
 
+
 ## class for Communication with ground station server using TCP-P socket.
 # we can receive msg and transmit msg to the ground station
 class Communication:
