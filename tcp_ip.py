@@ -3,6 +3,8 @@ import socket
 import sys
 import time
 import select
+import enum
+import xml.etree.ElementTree as ET
 
 """!
 @brief communication: using tcp-ip protocol for commuincating with ground_station.
@@ -73,10 +75,23 @@ class Communication:
             return None
 
     def handle_data(self, data):
-        if data == "b'hey'":
-            print("Handling data\n")
+        if data:
+            root = ET.fromstring(data)
+            inst = root.find('cmd').get('type')
+            if inst == "instruction":
+                for elem in root.findall('cmd'):
+                    direction = elem.find('dir').text
+                    coordinates = elem.find('coordinates').text
+                    print(direction, coordinates)
+            elif inst == "info":
+                for elem in root.findall('cmd'):
+                    info = elem.find('info').text
+                    print(info)
+            for child in root:
+                print(child.tag, child.attrib)
+
             self.transmit("hello")
-        else:
+        if not data:
             print("empty data\n")
             self.transmit("empty data")
 
@@ -86,3 +101,45 @@ class Communication:
     def close(self):
         print(sys.stderr, 'closing socket')
         self.sock.close()
+
+
+
+class Op(enum.Enum):
+    drive = 1
+    info = 2
+
+
+class Data:
+    def __init__(self, op):
+        self.operation = op
+
+
+class Instructions(Data):
+    def __init__(self, op, dir, coordinates):
+        Data.__init__(self,op)
+        self.coordinates = coordinates
+        self.dir = dir
+
+    def create_xml(self):
+        content = """ <data>
+                        <cmd type="instruction"> 
+                           <dir>""" + str(self.dir) + """ </dir>
+                           <coordinates>""" + str(self.coordinates) + """ </coordinates>
+                        </cmd>
+                    <data>"""
+        return content
+
+
+class Info(Data):
+    def __init__(self, op, info):
+        Data.__init__(self, op)
+        self.info = info
+
+    def create_xml(self):
+        content = """ <data> 
+                         <cmd type="info"> 
+                           <info>""" + str(self.info) + """ </info>
+                        </cmd>
+                    <data>"""
+
+        return content
