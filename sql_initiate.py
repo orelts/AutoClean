@@ -4,19 +4,19 @@ sql server is Microsoft SQL server.
 """
 
 import pyodbc
-
-## pyodbc handle for connection to the server
-conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'        #dont change
-                      'Server=localhost;'     #server name can be parsed from name in the SQL SERVER MANAGEMENT
-                      'Database=AutoCleanDB;'   #name of the database you want to parse from
-                      'uid=sa;'
-
-                      'pwd=ItamarOrel2020;')    #dont change
+server = 'localhost' # Replace this with the actual name of your SQL Edge Docker container
+username = 'sa' # SQL Server username
+password = 'ItamarOrel1995' # Replace this with the actual SA password from your deployment
+# database = 'Master' # Replace this with the actual database name from your deployment. If you do not have a database created, you can use Master database.
+db_connection_string = "Driver={FreeTDS};Server=" + server + ";port=1433" + ";UID=" + username + ";PWD=" + password + ";"
+conn = pyodbc.connect(db_connection_string,  autocommit=True)
 
 
 ## pyodcb handle for accessing and acting on the server
 cursor = conn.cursor()
 
+cursor.execute("CREATE DATABASE AutoCleanDB")
+cursor.execute("USE AutoCleanDB")
 
 ## initiation of SQL for Sensors module
 cursor.execute('''
@@ -36,6 +36,9 @@ if not exists (select * from sysobjects where name='SensorsInfo' and xtype='U')
 	WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.SensorsInfoHistory));
 
 ''')
+
+for row in cursor.tables():
+    print(row.table_name)
 
 conn.commit()
 
