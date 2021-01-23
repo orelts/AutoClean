@@ -48,12 +48,14 @@ class Communication:
 
         print('sending "{}"'.format(message))
         self.sock.sendall(message.encode())
+        time.sleep(1)
 
     ##  composing the msg for transmission
     # @params sensors information
     # @returns msg
     def composeMsg(self, msg):
         return self.header + 'T' + msg + self.footer
+
 
     ##  receive msg from the server
     # @params -
@@ -68,32 +70,35 @@ class Communication:
                 try:
                     self.handle_data(data)
                 except Exception as e:
-                    print("There was a problem", e, file= sys.stderr)
+                    print("There was a problem", e, file=sys.stderr)
         if got_data:
             return data
         else:
             return None
 
     def handle_data(self, data):
-        if data:
-            root = ET.fromstring(data)
-            inst = root.find('cmd').get('type')
-            if inst == "instruction":
-                for elem in root.findall('cmd'):
-                    direction = elem.find('dir').text
-                    coordinates = elem.find('coordinates').text
-                    print(direction, coordinates)
-            elif inst == "info":
-                for elem in root.findall('cmd'):
-                    info = elem.find('info').text
-                    print(info)
-            for child in root:
-                print(child.tag, child.attrib)
+       try:
+            if data:
+                root = ET.fromstring(data)
+                inst = root.find('cmd').get('type')
+                if inst == "instruction":
+                    for elem in root.findall('cmd'):
+                        direction = elem.find('dir').text
+                        coordinates = elem.find('coordinates').text
+                        print(direction, coordinates)
+                elif inst == "info":
+                    for elem in root.findall('cmd'):
+                        info = elem.find('info').text
+                        print(info)
+                for child in root:
+                    print(child.tag, child.attrib)
 
-            self.transmit("hello")
-        if not data:
-            print("empty data\n")
-            self.transmit("empty data")
+                self.transmit("handled data")
+            if not data:
+                print("empty data\n")
+                self.transmit("empty data")
+       except Exception as e:
+        self.transmit(str(e))
 
 
 
@@ -126,7 +131,7 @@ class Instructions(Data):
                            <dir>""" + str(self.dir) + """ </dir>
                            <coordinates>""" + str(self.coordinates) + """ </coordinates>
                         </cmd>
-                    <data>"""
+                    </data>"""
         return content
 
 
@@ -140,6 +145,6 @@ class Info(Data):
                          <cmd type="info"> 
                            <info>""" + str(self.info) + """ </info>
                         </cmd>
-                    <data>"""
+                    </data>"""
 
         return content
