@@ -13,7 +13,9 @@ if __name__ == '__main__':
             print("Connection Established")
             while True:
                 try:
-                    ret = conn.get_cmds() # if ret is None no instruction was given TODO: should we use it
+                    conn.transmit("-") # for server status detection
+                    ret = conn.get_cmds()
+                    conn.handle_data(ret)
                 except Exception as e:
                     raise e
         except Exception as e:

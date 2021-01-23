@@ -4,11 +4,21 @@ from tcp_ip import Op
 from tcp_ip import Instructions
 from tcp_ip import Info
 
-import enum
+
+def command_input():
+    inp = input("Enter cmd input please\n")
+    xml_msg = None
+
+    if inp == "dir":
+        xml_data = Instructions(Op.drive, "left", "10.4.2.1")
+        xml_msg = xml_data.create_xml()
+    elif inp == "inf":
+        xml_data = Info(Op.info, "location")
+        xml_msg = xml_data.create_xml()
+    return xml_msg
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
-BUFFER_SIZE = 20  # Normally 1024, but we want fast response
 MAX_TRIES = 5
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,22 +29,18 @@ conn, addr = s.accept()
 print('Connection address:', addr)
 
 while True:
-    inp = input("Enter cmd input please\n")
-    xml_msg = None
-    if inp == "dir":
-        xml_data = Instructions(Op.drive, "left", "10.4.2.1")
-        xml_msg = xml_data.create_xml()
-    elif inp == "inf":
-        xml_data = Info(Op.info, "location")
-        xml_msg = xml_data.create_xml()
 
-    if xml_msg == None:
+    xml_msg = command_input()
+    if xml_msg is None:
         continue
+
+    # flushing the recv buffer before sending command and receiving usefull feedback
+    conn.recv(4096)
 
     data_ok = False
     attempt = 0
     while attempt < MAX_TRIES:
-        print("Sending msg try  {} \n ".format(attempt))
+        print("Sending msg try {} ".format(attempt))
         conn.send(xml_msg.encode())
         data = conn.recv(4096)
         data_ok = True

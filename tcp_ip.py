@@ -43,7 +43,6 @@ class Communication:
         if data != "":
             message = self.composeMsg(data)
         else:  # default msg
-            print('default message')
             message = self.composeMsg()
 
         print('sending "{}"'.format(message))
@@ -53,25 +52,17 @@ class Communication:
     ##  composing the msg for transmission
     # @params sensors information
     # @returns msg
-    def composeMsg(self, msg):
-        return self.header + 'T' + msg + self.footer
+    def composeMsg(self, msg = ""):
+        return msg
 
 
     ##  receive msg from the server
     # @params -
     # @returns received msg
     def get_cmds(self):
-        got_data = False
         ready = select.select([self.sock], [], [], 1)
         if ready[0]:
             data = self.sock.recv(4096)
-            got_data = True
-            if data:
-                try:
-                    self.handle_data(data)
-                except Exception as e:
-                    print("There was a problem", e, file=sys.stderr)
-        if got_data:
             return data
         else:
             return None
@@ -94,9 +85,8 @@ class Communication:
                     print(child.tag, child.attrib)
 
                 self.transmit("handled data")
-            if not data:
-                print("empty data\n")
-                self.transmit("empty data")
+            else:
+                pass
        except Exception as e:
         self.transmit(str(e))
 
