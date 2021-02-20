@@ -35,7 +35,7 @@ def turn_left(address,speed):
     ser.write(speed)
     ser.write((address + 11 + speed) & 0b01111111)
 
-#sample driving
+#sample driving commands
 if __name__ == '__main__':
     drive_forward(128,50)
     time.sleep(2)
