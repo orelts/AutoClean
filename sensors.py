@@ -29,9 +29,9 @@ if __name__ == '__main__':
     TX_Pixhawk_telem = telemetry.Telemetry(vehicleConnected)  # can't open SITL simulation on TX2 ARM (only on computer)
     TX_Pixhawk_telem.initialize(inDoor)
 
-    while (not TX_Pixhawk_telem.is_arm()) and flightMode:
-        print("In flight mode. Waiting the drone to be armed to continue")
-        time.sleep(1)
+    # while (not TX_Pixhawk_telem.is_arm()) and flightMode:
+    #     print("In flight mode. Waiting the drone to be armed to continue")
+    #     time.sleep(1)
 
     while True:
         try:

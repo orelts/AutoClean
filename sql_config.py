@@ -1,16 +1,11 @@
 import pyodbc
 
 d_sensors = {
-    "lat": "0",
-    "lon": "0",
     "alt": "0",
     "heading_": "0",
     "relative_alt": "0",
-    "yaw": "0",
-    "pitch": "0",
-    "roll": "0",
     "groundspeed": "0",
-    "home_location": "0",
+    # "home_location": "0",
     "last_heartbeat": "0",
 }
 

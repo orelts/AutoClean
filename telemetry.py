@@ -18,25 +18,15 @@ def check_none(val):
 ## class for sensors info which saves the needed telem info.
 # might alter information to suit to our needs
 class SensorsInfo:
-    def __init__(self, lat, lon, alt, heading, relative_alt, yaw, pitch, roll, groundspeed, home_location, battery, last_heartbeat):
-        ## latitude of vehcile is relative to the WGS84 coordinate system.
-        self.lat_ = lat
-        ## longitude of vehicle is relative to the WGS84 coordinate system.
-        self.lon_ = lon
+    def __init__(self, alt, heading, relative_alt, groundspeed, last_heartbeat):
         ## altitue of vehicle in meters
         self.alt_ = alt
         ## current heading in degrees - 0..360, where North = 0 (int).
         self.heading_ = heading
         self.relative_alt_ = relative_alt
-        ## yaw of vehicle in Radians
-        self.yaw_ = yaw
-        ## pitch of vehicle in Radians
-        self.pitch_ = pitch
-        ## roll of vehicle in Radians
-        self.roll_ = roll
         ## groundspeed of vehicle in meters/second
         self.groundspeed_ = groundspeed
-        self.home_location_ = home_location
+        # self.home_location_ = home_location
         ## Time since last MAVLink heartbeat was received (in seconds).
         #The attribute can be used to monitor link activity and implement script-specific timeout handling.
         self.last_heartbeat_ = last_heartbeat
@@ -134,15 +124,10 @@ class Telemetry:
             #     self.vehicle.last_heartbeat))  # when did we receive the last heartbeat
 
         sensors_info = SensorsInfo(check_none(self.vehicle.location.global_relative_frame.lat),
-                    check_none(self.vehicle.location.global_relative_frame.lon),
-                    check_none(self.vehicle.location.global_relative_frame.alt),
                     check_none(self.vehicle.heading),
                     check_none(self.vehicle.location.global_frame.alt - takeoff_alt_barom),
-                    check_none(self.vehicle.gimbal.yaw),
-                    check_none(self.vehicle.gimbal.pitch),
-                    check_none(self.vehicle.gimbal.roll),
                     check_none(self.vehicle.groundspeed),
-                    check_none(self.vehicle.home_location),
+                    # check_none(self.vehicle.home_location),
                     check_none(self.vehicle.last_heartbeat)
                     )
         return sensors_info
