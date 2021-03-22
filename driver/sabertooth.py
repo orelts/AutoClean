@@ -1,5 +1,4 @@
 import time
-import serial
 from pysabertooth import Sabertooth
 
 # configure the serial connections (the parameters that we see here are stated in the sabertooth's specs)

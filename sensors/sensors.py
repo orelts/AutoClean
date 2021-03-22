@@ -4,7 +4,7 @@
 import telemetry
 import time
 import argparse
-from sql_config import *
+from sql.sql_config import *
 
 """
 Parsing given arguments
