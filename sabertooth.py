@@ -1,5 +1,6 @@
 import time
 import serial
+import pysabertooth
 
 # configure the serial connections (the parameters that we see here are stated in the sabertooth's specs)
 ser = serial.Serial(
@@ -12,52 +13,48 @@ ser = serial.Serial(
 ser.open()
 
 ## according to sabertooth specs, page 18
-def drive_forward(address,speed):
-    ser.write(address)
-    ser.write(8)
-    ser.write(speed)
-    ser.write((address + 8 + speed) & 0b01111111)
-    ser.flush()
+def drive_forward(speed,address=128,duration=3):
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        ser.write(bytes(address))
+        ser.write(bytes(8))        #command
+        ser.write(bytes(speed))
+        ser.write(bytes((address + 8 + speed) & 0b01111111))
+        ser.flush()
 
-def drive_backwards(address,speed):
-    ser.write(address)
-    ser.write(9)
-    ser.write(speed)
-    ser.write((address + 9 + speed) & 0b01111111)
-    ser.flush()
+def drive_backwards(speed,address=128,duration=3):
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        ser.write(bytes(address))
+        ser.write(bytes(9))
+        ser.write(bytes(speed))
+        ser.write(bytes((address + 9 + speed) & 0b01111111))
+        ser.flush()
 
-def turn_right(address,speed):
-    ser.write(address)
-    ser.write(10)
-    ser.write(speed)
-    ser.write((address + 10 + speed) & 0b01111111)
-    ser.flush()
+def turn_right(speed,address=128,duration=5):
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        ser.write(bytes(address))
+        ser.write(bytes(10))
+        ser.write(bytes(speed))
+        ser.write(bytes((address + 10 + speed) & 0b01111111))
+        ser.flush()
 
-def turn_left(address,speed):
-    ser.write(address)
-    ser.write(11)
-    ser.write(speed)
-    ser.write((address + 11 + speed) & 0b01111111)
-    ser.flush()
+def turn_left(speed,address=128,duration=3):
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        ser.write(bytes(address))
+        ser.write(bytes(11))
+        ser.write(bytes(speed))
+        ser.write(bytes((address + 11 + speed) & 0b01111111))
+        ser.flush()
 
 #sample driving commands
 if __name__ == '__main__':
-    drive_forward(128,50)
-    time.sleep(2)
-    drive_forward(128, 0)
-    time.sleep(0.5)
+    drive_forward(50)
+    turn_right(50)
+    drive_backwards(50)
+    turn_left(50)
 
-    drive_backwards(128,100)
-    time.sleep(2)
-    drive_backwards(0, 100)
-    time.sleep(0.5)
-
-    turn_left(128,10)
-    time.sleep(2)
-    turn_left(128,0)
-    time.sleep(0.5)
-
-    turn_right(128,20)
-    time.sleep(2)
-    turn_right(128,0)
-    time.sleep(0.5)
+    ser.stop()
+    ser.close()
