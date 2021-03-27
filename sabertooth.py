@@ -9,7 +9,7 @@ ser = serial.Serial(
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS
 )
-
+ser.open()
 
 ## according to sabertooth specs, page 18
 def drive_forward(address,speed):
@@ -17,24 +17,28 @@ def drive_forward(address,speed):
     ser.write(8)
     ser.write(speed)
     ser.write((address + 8 + speed) & 0b01111111)
+    ser.flush()
 
 def drive_backwards(address,speed):
     ser.write(address)
     ser.write(9)
     ser.write(speed)
     ser.write((address + 9 + speed) & 0b01111111)
+    ser.flush()
 
 def turn_right(address,speed):
     ser.write(address)
     ser.write(10)
     ser.write(speed)
     ser.write((address + 10 + speed) & 0b01111111)
+    ser.flush()
 
 def turn_left(address,speed):
     ser.write(address)
     ser.write(11)
     ser.write(speed)
     ser.write((address + 11 + speed) & 0b01111111)
+    ser.flush()
 
 #sample driving commands
 if __name__ == '__main__':
