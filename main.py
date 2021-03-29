@@ -8,6 +8,9 @@ if __name__ == '__main__':
     # subprocess.Popen("python3 ./sensors/sensors.py --is-vehicle --in-door", shell=True, close_fds=True)
     subprocess.Popen("python3 sabertooth.py", shell=True)
 
+    subprocess.Popen("python3 ./sensors/sensors.py --is-vehicle --in-door", shell=True, close_fds=True)
+    subprocess.Popen("python3 ./driver/manual_driver.py", shell=True)
+
     conn, cursor = connect_to_db()
     sleep(2000)
     while True:
