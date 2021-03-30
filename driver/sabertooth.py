@@ -13,9 +13,9 @@
 #         time.sleep(2)
 #         saber.drive(2, 30)
 #         time.sleep(2)
-
 import time
 import serial
+import pysabertooth
 
 class sabertooth:
 # ttyS0 is UART0 in auvidea j121 board
@@ -27,7 +27,9 @@ class sabertooth:
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
-        self.ser.open()
+        #mixed mode works only when valid data is first sent to turn and drive commands
+        self.drive_forward(0)
+        self.turn_right(0)
 
     ## according to sabertooth specs, page 18
     def drive(self,speed,command,address,duration):
@@ -37,6 +39,7 @@ class sabertooth:
             msg = bytes(bytearray(msg))
             self.ser.write(msg)
             self.ser.flush()
+
     def drive_forward(self,speed,address=128,duration=1):
         self.drive(speed,8,address,duration)
 
@@ -49,33 +52,15 @@ class sabertooth:
     def turn_left(self,speed,address=128,duration=1):
         self.drive(speed,11,address,duration)
 
-#sample driving commands
-# if __name__ == '__main__':
-#     drive_forward(50,duration=7)
-#     turn_right(50)
-#     drive_backwards(50)
-#     turn_left(50)
-#
-#     ser.stop()
-#     ser.close()
-
-
-
+    def stop(self,address=128):
+        self.drive(0, 8, address, 1)
 
 if __name__ == '__main__':
-    # sample driving
-    # drive(number, speed)
-    # number: 1-2
-    # speed: -100 - 100
-    # configure the serial connections (the parameters that we see here are stated in the sabertooth's specs)
+
     saber = sabertooth()
 
-    while True:
-        x = input("PLease press to move")
-        if x == "x":
-            saber.drive(2, 30)
-            saber.drive(1, 30)
-            time.sleep(2)
-        saber.stop()
+    saber.drive_forward(50,address=128,duration=5)
+    saber.turn_left(50,address=128,duration=3)
+    saber.stop()
 
 
