@@ -16,21 +16,26 @@ if __name__ == '__main__':
         saber = sabertooth.sabertooth()
         if keyboard.is_pressed('esc'):
             manual_driving_mode = 'OFF'
-        if keyboard.is_pressed('up'):
+            saber.stop()
+        elif keyboard.is_pressed('up'):
             print('fwd')
             saber.drive_forward(50)
             time.sleep(0.5)
-        if keyboard.is_pressed('down'):
+        elif keyboard.is_pressed('down'):
             print('back')
             saber.drive_backwards(50)
             time.sleep(0.5)
-        if keyboard.is_pressed('right'):
+        elif keyboard.is_pressed('right'):
             print('right')
             saber.turn_right(50)
             time.sleep(0.5)
-        if keyboard.is_pressed('left'):
+        elif keyboard.is_pressed('left'):
             print('left')
             saber.turn_left(50)
+            time.sleep(0.5)
+        elif keyboard.is_pressed('space'):
+            print('stop')
+            saber.stop()
             time.sleep(0.5)
 
 
