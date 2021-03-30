@@ -28,32 +28,34 @@ class sabertooth:
             bytesize=serial.EIGHTBITS
         )
         #mixed mode works only when valid data is first sent to turn and drive commands
-        self.drive_forward(0)
-        self.turn_right(0)
+        self.drive_forward(0,work_once=True)
+        self.turn_right(0,work_once=True)
 
     ## according to sabertooth specs, page 18
-    def drive(self,speed,command,address,duration):
+    def drive(self,speed,command,address,duration,work_once):
         end_time = time.time() + duration
         while time.time() < end_time:
             msg = [address, command, speed, ((address + command + speed) & 0b01111111)]
             msg = bytes(bytearray(msg))
             self.ser.write(msg)
             self.ser.flush()
+            if(work_once):
+                break
 
-    def drive_forward(self,speed,address=128,duration=0.5):
-        self.drive(speed,8,address,duration)
+    def drive_forward(self,speed,address=128,duration=0.5,work_once=False):
+        self.drive(speed,8,address,duration,work_once)
 
-    def drive_backwards(self,speed,address=128,duration=0.5):
-        self.drive(speed,9,address,duration)
+    def drive_backwards(self,speed,address=128,duration=0.5,work_once=False):
+        self.drive(speed,9,address,duration,work_once)
 
-    def turn_right(self,speed,address=128,duration=0.5):
-        self.drive(speed,10,address,duration)
+    def turn_right(self,speed,address=128,duration=0.5,work_once=False):
+        self.drive(speed,10,address,duration,work_once)
 
-    def turn_left(self,speed,address=128,duration=0.5):
-        self.drive(speed,11,address,duration)
+    def turn_left(self,speed,address=128,duration=0.5,work_once=False):
+        self.drive(speed,11,address,duration,work_once)
 
     def stop(self,address=128):
-        self.drive(0, 8, address, 1)
+        self.drive(0, 8, address, 1,True)
 
 if __name__ == '__main__':
 
