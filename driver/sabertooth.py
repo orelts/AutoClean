@@ -40,16 +40,16 @@ class sabertooth:
             self.ser.write(msg)
             self.ser.flush()
 
-    def drive_forward(self,speed,address=128,duration=1):
+    def drive_forward(self,speed,address=128,duration=0.5):
         self.drive(speed,8,address,duration)
 
-    def drive_backwards(self,speed,address=128,duration=1):
+    def drive_backwards(self,speed,address=128,duration=0.5):
         self.drive(speed,9,address,duration)
 
-    def turn_right(self,speed,address=128,duration=1):
+    def turn_right(self,speed,address=128,duration=0.5):
         self.drive(speed,10,address,duration)
 
-    def turn_left(self,speed,address=128,duration=1):
+    def turn_left(self,speed,address=128,duration=0.5):
         self.drive(speed,11,address,duration)
 
     def stop(self,address=128):
