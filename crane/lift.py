@@ -23,5 +23,22 @@ if __name__ == '__main__':
 
 
     cr= crane()
-    cr.move_arm(1,5, 5)
-    cr.move_arm(3, 5, 5)
+
+
+    while True:
+        x = input("Enter ")
+        if x == "o1":
+            print("Open")
+            cr.move_arm(1, 1500, 600)
+        elif x == "c1":
+            print("Close")
+            cr.move_arm(1, 500, 600)
+        elif x == "o3":
+            print("Open")
+            cr.move_arm(3, 1500, 600)
+
+        elif x == "c3":
+            print("Open")
+            cr.move_arm(3, 800, 600)
+
+
