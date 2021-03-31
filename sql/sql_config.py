@@ -9,6 +9,10 @@ d_sensors = {
     "last_heartbeat": "0",
 }
 
+d_lift = {
+    "command": "0",
+
+}
 
 def drop_table(cursor, conn, table, history_table=None):
 
@@ -118,13 +122,13 @@ def update_sql(curs, conn, table, data, is_one_row, sql_dict):
         data_line = data_line[:-1]
 
         n = len(sql_dict)
-        values_str = ',?' * len(sql_dict)
+        values_str = ',?' * n
         values_str = values_str[1:]
 
         curs.execute('''
-                        INSERT INTO dbo.''' + table + '''(''' + data_line + ''')
-                        VALUES(''' + values_str + ''')
-                        ''', data
+                    INSERT INTO dbo.''' + table + '''(''' + data_line + ''')
+                    VALUES(''' + values_str + ''')
+                    ''', data
                      )
 
     conn.commit()
@@ -138,5 +142,16 @@ def print_sql_row(curs, table_name="SensorsInfo"):
     for row in table_rows:
         for idx in range(len(columns)):
             print(row[idx],  end=', ')
+        print("\n")
+
+def get_last_table_elem(curs, field, table_name):
+    query = "SELECT MAX(id) FROM " + table_name
+    ID = curs.execute(query).fetchone()
+    query = "SELECT " + field + " FROM " + table_name + " WHERE ID = " + str(ID[0])
+    x = curs.execute(query).fetchone()
+    return x[0]
+
+
+
 
 

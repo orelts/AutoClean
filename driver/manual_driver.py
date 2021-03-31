@@ -1,4 +1,4 @@
-from keyboard_master import keyboard
+import keyboard
 import sabertooth
 import time
 from crane import lynxmotion
