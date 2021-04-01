@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """!
 @brief manual_driver: module which is set for manual control over the robot
 entering manual driving mode by pressing 'enter', exiting by pressing 'escape'
@@ -6,7 +7,8 @@ WASD control the crane
 note: there is also a git commit where xbox controller is configured to control the robot
 """
 
-from keyboard_master import keyboard
+
+import keyboard
 import sabertooth
 import time
 from crane import lynxmotion
