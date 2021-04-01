@@ -1,25 +1,14 @@
+"""!
+@brief sabertooth: class implementation for initialization and activation of the motors.
+"""
 
-
-# # configure the serial connections (the parameters that we see here are stated in the sabertooth's specs)
-# saber = Sabertooth('/dev/ttyS0', baudrate=9600, address=128, timeout=0.1)
-#
-# #sample driving
-# if __name__ == '__main__':
-#     # drive(number, speed)
-#     # number: 1-2
-#     # speed: -100 - 100
-#     while True:
-#         saber.drive(1, 30)
-#         time.sleep(2)
-#         saber.drive(2, 30)
-#         time.sleep(2)
 import time
 import serial
-import pysabertooth
 
 class sabertooth:
-# ttyS0 is UART0 in auvidea j121 board
     def __init__(self):
+        ## serial connection initialization according to the sabertooth guide
+        # ttyS0 is UART0 in auvidea j121 board
         self.ser = serial.Serial(
             port='/dev/ttyS0',
             baudrate=9600,
@@ -27,11 +16,13 @@ class sabertooth:
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
-        #mixed mode works only when valid data is first sent to turn and drive commands
+        ## mixed mode works only when valid data is first sent to turn and drive commands
         self.drive_forward(0,work_once=True)
         self.turn_right(0,work_once=True)
 
-    ## according to sabertooth specs, page 18
+    ## supporting method
+    # driving methods must be sent consecutively using loops
+    # work_once is used to initialize the motors when creating a sabertooth instance
     def drive(self,speed,command,address,duration,work_once):
         end_time = time.time() + duration
         while time.time() < end_time:

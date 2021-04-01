@@ -1,8 +1,15 @@
+"""!
+@brief lynxmotion: class implementation for initialization and activation of the servo-motors.
+"""
 
 import serial
 
 class lynxmotion:
     def __init__(self):
+        ## serial connection initialization
+        # cage_state and arm_state hold the current states of the crane
+        # preferebly there are 2 states in which the cage can be - open or closed, but there can be much more freedom
+        # in sellection of the apperature of the cage. same for the position of the arm - up or down
         self.cage_state = 'OPEN'
         self.arm_state = 'UP'
         self.ser = serial.Serial(
@@ -12,9 +19,12 @@ class lynxmotion:
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
+        ## initialization
         self.close_cage()
         self.arm_down()
 
+    ## supporting method
+    # message format is according to lynxmotion guide
     def use_servo(self, servo_num, location, speed):
         msg = "#" + str(servo_num) + "P" + str(location)+"S" + str(speed)+ "\r"
         msg = bytes(bytearray(msg.encode()))

@@ -1,12 +1,15 @@
+"""!
+@brief manual_driver: module which is set for manual control over the robot
+entering manual driving mode by pressing 'enter', exiting by pressing 'escape'
+arrows control the direction of movement
+WASD control the crane
+note: there is also a git commit where xbox controller is configured to control the robot
+"""
+
 from keyboard_master import keyboard
 import sabertooth
 import time
 from crane import lynxmotion
-
-## manual
-## entering manual driving mode by pressing 'enter', exiting by pressing 'escape'
-## arrows control the direction of movement
-## WASD control the crane
 
 if __name__ == '__main__':
     manual_driving_mode = 'OFF'
@@ -63,49 +66,3 @@ if __name__ == '__main__':
     exit()
 
 
-
-## xbox controller,  currently working only on windows
-## this file exists for driving demo. using xbox controller to navigate
-## (important) activate controller before activating the TX2
-## to activate manual driving mode press 3 times on Right-Back button on xbox controller
-## to deactivate this mode press 3 times on Left-Back button on xbox controller
-
-#     while time.time() < end_time and manual_driving_mode == 'OFF':
-#         try:
-#             events = get_key()
-#         except Exception:
-#             break
-#         for event in events:
-#             print (event.code,event.state)
-#             if (event.code == 'BTN_TR' and event.state == 1):
-#                 startup_RB_count = startup_RB_count +1
-#             if startup_RB_count == 3:
-#                 manual_driving_mode = 'ON'
-#                 break
-#
-#
-#     if manual_driving_mode == 'ON':
-#         saber = sabertooth.sabertooth()
-#         while manual_driving_mode == 'ON':
-#             try:
-#                 events = get_key()
-#             except Exception:
-#                 break
-#             for event in events:
-#                 print(event.code, event.state)
-#                 ##stopping sequence
-#                 if (event.code == 'BTN_TL' and event.state == 1):
-#                     startup_RB_count = startup_RB_count - 1
-#                 if startup_RB_count == 0:
-#                     manual_driving_mode = 'OFF'
-#
-#                 elif event.code != 'BTN_TL':
-#                     if (event.code == 'ABS_HAT0Y' and event.state == -1):
-#                         saber.drive_forward(50)
-#                     if (event.code == 'ABS_HAT0Y' and event.state == 1):
-#                         saber.drive_backwards(50)
-#                     if (event.code == 'ABS_HAT0X' and event.state == -1):
-#                         saber.turn_left(50)
-#                     if (event.code == 'ABS_HAT0X' and event.state == 1):
-#                         saber.turn_right(50)
-#
