@@ -11,7 +11,10 @@ d_sensors = {
 
 d_lift = {
     "command": "0",
+}
 
+d_driver = {
+    "command": "0",
 }
 
 def drop_table(cursor, conn, table, history_table=None):
@@ -94,7 +97,7 @@ def init_sql_table(curs, conn, table, sql_dict, is_one_row, history_table=None):
 def connect_to_db():
     server = 'localhost'
     username = 'sa'
-    password = 'ItamarOrel1995'
+    password = 'nvidia19951994'
     db_connection_string = "Driver={FreeTDS};Server=" + server + ";port=1433" + ";UID=" + username + ";PWD=" + password + ";"
 
     conn = pyodbc.connect(db_connection_string,  autocommit=True)

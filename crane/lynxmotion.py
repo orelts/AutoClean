@@ -3,8 +3,10 @@
 """
 
 import serial
+from sql.sql_config import *
+import time
 
-class lynxmotion:
+class Lynxmotion:
     def __init__(self):
         ## serial connection initialization
         # cage_state and arm_state hold the current states of the crane
@@ -32,18 +34,18 @@ class lynxmotion:
         self.ser.flush()
 
     def close_cage(self):
-        if self.cage_closed == 'CLOSED':
+        if self.cage_state == 'CLOSED':
             return
         else:
-            self.use_servo(1,500,600)
-            self.cage_closed = 'CLOSED'
+            self.use_servo(1,1000,600)
+            self.cage_state = 'CLOSED'
 
     def open_cage(self):
-        if  self.cage_closed == 'OPEN':
+        if  self.cage_state == 'OPEN':
             return
         else:
-            self.use_servo(1,1500,600)
-            self.cage_closed = 'OPEN'
+            self.use_servo(1,2500,600)
+            self.cage_state = 'OPEN'
 
     def arm_down(self):
         if self.arm_state == 'DOWN':
@@ -56,31 +58,33 @@ class lynxmotion:
         if self.arm_state == 'UP':
             return
         else:
-            self.use_servo(3,1500,600)
+            self.use_servo(3,2500,600)
             self.arm_state = 'UP'
 
 
 
 if __name__ == '__main__':
 
-
-    cr = lynxmotion()
-
-
+    conn, cursor = connect_to_db()
     while True:
-        x = input("Enter ")
-        if x == "o1":
-            print("Open")
-            cr.use_servo(1, 1500, 600)
-        elif x == "c1":
-            print("Close")
-            cr.use_servo(1, 500, 600)
-        elif x == "o3":
-            print("Open")
-            cr.use_servo(3, 1500, 600)
-
-        elif x == "c3":
-            print("Open")
-            cr.use_servo(3, 800, 600)
+        print_sql_row(cursor, "lift")
+        time.sleep(1)
+    # cr = Lynxmotion()
+    #
+    # while True:
+    #     x = input("Enter ")
+    #     if x == "o1":
+    #         print("Open")
+    #         cr.use_servo(1, 1500, 600)
+    #     elif x == "c1":
+    #         print("Close")
+    #         cr.use_servo(1, 500, 600)
+    #     elif x == "o3":
+    #         print("Open")
+    #         cr.use_servo(3, 1500, 600)
+    #
+    #     elif x == "c3":
+    #         print("Open")
+    #         cr.use_servo(3, 800, 600)
 
 

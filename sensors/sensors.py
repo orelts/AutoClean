@@ -6,6 +6,7 @@ import time
 import argparse
 from sql.sql_config import *
 
+
 """
 Parsing given arguments
 """
@@ -23,7 +24,7 @@ args = parser.parse_args()
 if __name__ == '__main__':
 
     conn, cursor = connect_to_db()
-    vehicleConnected = args.is_vehicle; flightMode = args.is_flight; inDoor = args.in_door
+    vehicleConnected = True; flightMode = False; inDoor = True
 
     # initiate contact with flight computer #
     TX_Pixhawk_telem = telemetry.Telemetry(vehicleConnected)  # can't open SITL simulation on TX2 ARM (only on computer)
