@@ -4,7 +4,18 @@
 import telemetry
 import time
 import argparse
+import sys
+import os
+from multiprocessing import Process
+
+module_path = os.path.abspath(os.getcwd())
+
+if module_path not in sys.path:
+
+    sys.path.append(module_path)
+
 from sql.sql_config import *
+
 
 
 """
@@ -20,6 +31,18 @@ parser.add_argument("--in-door", action='store_true',
                     help="If we are indoor (no GPS connection)")
 args = parser.parse_args()
 
+HISTORY_WRITE = 10
+def export_sensors_to_excel():
+    conn, cursor = connect_to_db()
+    t_hist = 0
+    while True:
+        sql_to_excel(conn, "SensorsInfo", "sql/SensorsInfo.xlsx")
+        time.sleep(1)
+        t_hist = t_hist + 1
+        if t_hist == HISTORY_WRITE:
+            sql_to_excel(conn, "SensorsInfoHistory", "sql/SensorsInfoHistory.xlsx")
+            time.sleep(10)
+            t_hist = 0
 
 if __name__ == '__main__':
 
@@ -34,6 +57,9 @@ if __name__ == '__main__':
     #     print("In flight mode. Waiting the drone to be armed to continue")
     #     time.sleep(1)
 
+    p = Process(target=export_sensors_to_excel)
+    p.start()
+
     while True:
         try:
             sensors_info = TX_Pixhawk_telem.read_information()
@@ -44,6 +70,7 @@ if __name__ == '__main__':
             print("something's wrong with transmission. Exception is {}".format(e))
 
     # for now - we don't reach here
+    p.join()
     TX_Pixhawk_telem.close()
     print("Main closed. Bye")
 

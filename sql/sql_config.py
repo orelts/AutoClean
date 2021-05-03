@@ -1,4 +1,6 @@
+from __future__ import print_function
 import pyodbc
+import pandas as pd
 
 d_sensors = {
     "alt": "0",
@@ -145,7 +147,7 @@ def print_sql_row(curs, table_name="SensorsInfo"):
     for row in table_rows:
         for idx in range(len(columns)):
             print(row[idx],  end=', ')
-        print("\n")
+        print("")
 
 def get_last_table_elem(curs, field, table_name):
     query = "SELECT MAX(id) FROM " + table_name
@@ -155,6 +157,7 @@ def get_last_table_elem(curs, field, table_name):
     return x[0]
 
 
-
+def sql_to_excel(conn, table, file_path):
+        pd.read_sql('SELECT * FROM ' + table, conn).to_excel(file_path)
 
 

@@ -171,13 +171,6 @@ class Telemetry:
         print("Telemetry is closed")
 
 
-"""
-# Callbacks function. Attributes that represent sensor values / used to monitor connection status are updated whenever a message is received from the vehicle. #
-# Attributes which reflect vehicle “state” are only updated when their values change #
-def _param_callback(self, attr_name, value):  # TODO: if not working (do not reflect actual drone params - send handle from 'main' instead of self)
-    # print(value)
-    return value
-"""
 
 
 # TODO: remove when done presenting it
