@@ -10,7 +10,6 @@ if __name__ == '__main__':
 
     conn, cursor = connect_to_db()
     init_database(cursor, conn)
-
     init_sql_table(cursor, conn, "SensorsInfo", d_sensors, True, "SensorsInfoHistory")
     init_sql_table(cursor, conn, "lift", d_lift, False)
     init_sql_table(cursor, conn, "driver", d_driver, False)

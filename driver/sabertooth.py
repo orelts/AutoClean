@@ -5,7 +5,7 @@
 import time
 import serial
 
-class sabertooth:
+class Sabertooth:
     def __init__(self):
         ## serial connection initialization according to the sabertooth guide
         # ttyS0 is UART0 in auvidea j121 board
@@ -49,9 +49,13 @@ class sabertooth:
         self.drive_forward(0,work_once=True)
         self.turn_right(0,work_once=True)
 
+
+
+
+
 if __name__ == '__main__':
 
-    saber = sabertooth()
+    saber = Sabertooth()
 
     saber.drive_forward(50,address=128,duration=5)
     saber.turn_left(50,address=128,duration=3)

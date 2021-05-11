@@ -16,7 +16,10 @@ d_lift = {
 }
 
 d_driver = {
-    "command": "0",
+    "angle": "0",
+    "speed": "0",
+    "distance": "0",
+    "is_commited": "0",
 }
 
 def drop_table(cursor, conn, table, history_table=None):
@@ -33,10 +36,20 @@ def drop_table(cursor, conn, table, history_table=None):
 
 def init_database(curs, conn):
     curs.execute('''
-                    IF EXISTS (SELECT name FROM master.sys.databases WHERE name = N'AutoCleanDB')
-                        USE AutoCleanDB
+                    IF EXISTS 
+                       (
+                         SELECT name FROM master.dbo.sysdatabases 
+                        WHERE name = N'AutoCleanDB'
+                        )
+                    BEGIN
+                        SELECT 'Database Name already Exist' AS Message
+                    END
                     ELSE
-                         CREATE DATABASE AutoCleanDB'''
+                    BEGIN
+                        CREATE DATABASE [AutoCleanDB]
+                        SELECT 'AutoCleanDB is Created'
+                    END
+                         '''
                  )
     conn.commit()
 
@@ -99,7 +112,7 @@ def init_sql_table(curs, conn, table, sql_dict, is_one_row, history_table=None):
 def connect_to_db():
     server = 'localhost'
     username = 'sa'
-    password = 'nvidia19951994'
+    password = 'Nvidia19951994'
     db_connection_string = "Driver={FreeTDS};Server=" + server + ";port=1433" + ";UID=" + username + ";PWD=" + password + ";"
 
     conn = pyodbc.connect(db_connection_string,  autocommit=True)
@@ -139,6 +152,14 @@ def update_sql(curs, conn, table, data, is_one_row, sql_dict):
     conn.commit()
 
 
+def get_column_idx(curs, table_name, field):
+    curs.execute("SELECT * FROM " + table_name)
+    columns = [column[0] for column in curs.description]
+    for idx in range(len(columns)):
+        if field == columns[idx]:
+            return idx
+    return None
+
 ## printing updated sql data in a dict way (Column, row). optional to choose table name
 def print_sql_row(curs, table_name="SensorsInfo"):
     table_rows = curs.execute("SELECT * FROM " + table_name)
@@ -156,6 +177,28 @@ def get_last_table_elem(curs, field, table_name):
     x = curs.execute(query).fetchone()
     return x[0]
 
+def get_row_by_id(curs, ID, table_name):
+    table_row = curs.execute("SELECT * FROM " + table_name + " WHERE ID = " + str(ID)).fetchall()
+    return table_row
+
+def get_row_by_condition(curs, condition, table_name):
+    query = "SELECT ID FROM " + table_name + " WHERE " + condition
+    ID = curs.execute(query).fetchone()
+    if ID == None:
+        return None, None
+    row = get_row_by_id(curs, ID[0], table_name)
+    return ID[0], row
+
+def set_element_in_row(curs, elem, ID, table_name, new_val):
+    query = "SELECT " + elem + " FROM " + table_name + " WHERE ID = " + str(ID)
+    curs.execute(query)
+    set = '''UPDATE dbo.''' + table_name + ''' SET ''' + elem  + '''=''' + new_val +''' WHERE ID='''  + str(ID)
+    curs.execute(set)
+
+def set_element_by_condition(curs, elem, condition, table_name, new_val):
+    query = "SELECT ID FROM " + table_name + " WHERE " + condition
+    ID = curs.execute(query).fetchnone()
+    set_element_in_row(curs, elem, ID[0], table_name, new_val)
 
 def sql_to_excel(conn, table, file_path):
         pd.read_sql('SELECT * FROM ' + table, conn).to_excel(file_path)
