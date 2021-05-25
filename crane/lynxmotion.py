@@ -3,27 +3,22 @@
 """
 
 import serial
-from sql.sql_config import *
 import time
-
-class Lynxmotion:
+class lynxmotion:
     def __init__(self):
         ## serial connection initialization
         # cage_state and arm_state hold the current states of the crane
         # preferebly there are 2 states in which the cage can be - open or closed, but there can be much more freedom
         # in sellection of the apperature of the cage. same for the position of the arm - up or down
-        self.cage_state = 'OPEN'
-        self.arm_state = 'UP'
+
         self.ser = serial.Serial(
-            port='/dev/ttyUSB0',
+            port='COM4', ## or ttyUSB0 or ttyS0
             baudrate=9600,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
-        ## initialization
-        self.close_cage()
-        self.arm_down()
+
 
     ## supporting method
     # message format is according to lynxmotion guide
@@ -34,57 +29,47 @@ class Lynxmotion:
         self.ser.flush()
 
     def close_cage(self):
-        if self.cage_state == 'CLOSED':
-            return
-        else:
-            self.use_servo(1,1000,600)
-            self.cage_state = 'CLOSED'
+            cr.use_servo(8, 800, 900)  # marked with L.  800=cage closed
+            cr.use_servo(11, 2050, 900)  # marked with R.  2050=cage closed
 
     def open_cage(self):
-        if  self.cage_state == 'OPEN':
-            return
-        else:
-            self.use_servo(1,2500,600)
-            self.cage_state = 'OPEN'
+            self.use_servo(8, 2300, 900)  # marked with L.  1500=cage open
+            self.use_servo(11, 600, 900)  # marked with R.  1400=cage open
+
 
     def arm_down(self):
-        if self.arm_state == 'DOWN':
-            return
-        else:
-            self.use_servo(3,500,600)
-            self.arm_state = 'DOWN'
+            self.use_servo(4, 500, 900)  # marked with L.  500=away from black plate
+            self.use_servo(7, 2500, 900)  # marked with R.  500=towards the black plate
 
     def arm_up(self):
-        if self.arm_state == 'UP':
-            return
-        else:
-            self.use_servo(3,2500,600)
-            self.arm_state = 'UP'
+            self.use_servo(4, 1800, 900)  # marked with L.  500=away from black plate
+            self.use_servo(7, 1200, 900)  # marked with R.  500=towards the black plate
 
+    def wrist_down(self):
+            cr.use_servo(12, 800, 900)  # marked with L.  950=on ground
+            cr.use_servo(15, 2200, 900)  # marked with R.  2050=on ground
+
+    def wrist_up(self):
+            self.use_servo(12, 1100, 900)
+            self.use_servo(15, 1900, 900)
 
 
 if __name__ == '__main__':
+    cr = lynxmotion()
+    time.sleep(3)
+    cr.close_cage()
+    time.sleep(2)
+    cr.arm_up()
+    cr.wrist_up()
+    time.sleep(1.5)
+    cr.open_cage()
+    # cr.use_servo(8, 800, 900)  #marked with L.  800=cage closed
+    # cr.use_servo(11, 2050,900)  #marked with R.  2050=cage closed
 
-    conn, cursor = connect_to_db()
-    while True:
-        print_sql_row(cursor, "lift")
-        time.sleep(1)
-    # cr = Lynxmotion()
-    #
-    # while True:
-    #     x = input("Enter ")
-    #     if x == "o1":
-    #         print("Open")
-    #         cr.use_servo(1, 1500, 600)
-    #     elif x == "c1":
-    #         print("Close")
-    #         cr.use_servo(1, 500, 600)
-    #     elif x == "o3":
-    #         print("Open")
-    #         cr.use_servo(3, 1500, 600)
-    #
-    #     elif x == "c3":
-    #         print("Open")
-    #         cr.use_servo(3, 800, 600)
+
+
+    # time.sleep(1)
+    # cr.open_cage()
+
 
 
