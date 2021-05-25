@@ -27,9 +27,11 @@ def drop_table(cursor, conn, table, history_table=None):
     if history_table is None:
         cursor.execute('''DROP TABLE AutoCleanDB.dbo.''' + table)
     else:
-        cursor.execute(''' ALTER TABLE dbo.''' + table + ''' SET (SYSTEM_VERSIONING = OFF)
-                      DROP TABLE AutoCleanDB.dbo.''' + table + '''
-                      DROP TABLE AutoCleanDB.dbo.''' + history_table)
+        cursor.execute(''' ALTER TABLE dbo.''' + table + ''' SET (SYSTEM_VERSIONING = OFF)  
+                        DROP TABLE AutoCleanDB.dbo.''' + table + ''' 
+                        DROP TABLE AutoCleanDB.dbo.''' + history_table)
+
+
 
     conn.commit()
 
@@ -112,7 +114,7 @@ def init_sql_table(curs, conn, table, sql_dict, is_one_row, history_table=None):
 def connect_to_db():
     server = 'localhost'
     username = 'sa'
-    password = 'Nvidia19951994'
+    password = 'nvidia19951994'
     db_connection_string = "Driver={FreeTDS};Server=" + server + ";port=1433" + ";UID=" + username + ";PWD=" + password + ";"
 
     conn = pyodbc.connect(db_connection_string,  autocommit=True)

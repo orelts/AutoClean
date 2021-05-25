@@ -32,7 +32,7 @@ if __name__ == '__main__':
     while(manual_driving_mode == 'OFF' and time.time() < end_time):
         if keyboard.is_pressed('enter'):
                 manual_driving_mode = 'ON'
-                saber = sabertooth.sabertooth()
+                saber = sabertooth.Sabertooth()
                 #lynx = Lynxmotion()
 
     while (manual_driving_mode == 'ON'):
@@ -46,8 +46,8 @@ if __name__ == '__main__':
             saber.drive_forward(70)
         elif keyboard.is_pressed('down'):
             print('back')
-            saber.drive_backwards(70)
-            time.sleep(0.5)
+            saber.drive_backwards(100)
+            time.sleep(1)
         elif keyboard.is_pressed('left'):
             x = get_last_table_elem(cursor, "heading_", "SensorsInfo")
             while abs(int(x) - int(get_last_table_elem(cursor, "heading_", "SensorsInfo"))) < 90  and not keyboard.is_pressed('space'):

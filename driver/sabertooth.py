@@ -32,20 +32,20 @@ class Sabertooth:
             self.ser.flush()
             if(work_once):
                 break
-        print("finished command")
-    def drive_forward(self,speed,address=128,duration=0.5, work_once=True):
+    def drive_forward(self,speed, duration=1, work_once=True, address=128):
         self.drive(speed,8,address,duration,work_once)
 
-    def drive_backwards(self,speed,address=128,duration=0.5, work_once=True):
+    def drive_backwards(self,speed, duration=1, work_once=True, address=128):
         self.drive(speed,9,address,duration,work_once)
 
-    def turn_right(self,speed,address=128,duration=0.5, work_once=True):
+    def turn_right(self,speed, duration=1, work_once=True, address=128):
         self.drive(speed,10,address,duration,work_once)
 
-    def turn_left(self,speed,address=128, duration=0.5, work_once=True):
+    def turn_left(self,speed, duration=1, work_once=True, address=128):
         self.drive(speed,11,address,duration,work_once)
 
     def stop(self,address=128):
+        print("Stop")
         self.drive_forward(0,work_once=True)
         self.turn_right(0,work_once=True)
 
