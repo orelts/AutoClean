@@ -28,6 +28,7 @@ class lynxmotion:
         self.ser.write(msg)
         self.ser.flush()
 
+    ## all movements calibrated physically on robot. don't change numbers unless faulty !!!
     def close_cage(self):
             cr.use_servo(8, 800, 900)  # marked with L.  800=cage closed
             cr.use_servo(11, 2050, 900)  # marked with R.  2050=cage closed
@@ -35,7 +36,6 @@ class lynxmotion:
     def open_cage(self):
             self.use_servo(8, 2300, 900)  # marked with L.  1500=cage open
             self.use_servo(11, 600, 900)  # marked with R.  1400=cage open
-
 
     def arm_down(self):
             self.use_servo(4, 500, 900)  # marked with L.  500=away from black plate
