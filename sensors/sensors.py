@@ -33,16 +33,17 @@ args = parser.parse_args()
 
 HISTORY_WRITE = 10
 def export_sensors_to_excel():
-    conn, cursor = connect_to_db()
-    t_hist = 0
-    while True:
-        sql_to_excel(conn, "SensorsInfo", "sql/SensorsInfo.xlsx")
-        time.sleep(1)
-        t_hist = t_hist + 1
-        if t_hist == HISTORY_WRITE:
-            sql_to_excel(conn, "SensorsInfoHistory", "sql/SensorsInfoHistory.xlsx")
-            time.sleep(10)
-            t_hist = 0
+    # conn, cursor = connect_to_db()
+    # t_hist = 0
+    # while True:
+    #     sql_to_excel(conn, "SensorsInfo", "sql/SensorsInfo.xlsx")
+    #     time.sleep(1)
+    #     t_hist = t_hist + 1
+    #     if t_hist == HISTORY_WRITE:
+    #         sql_to_excel(conn, "SensorsInfoHistory", "sql/SensorsInfoHistory.xlsx")
+    #         time.sleep(10)
+    #         t_hist = 0
+    pass
 
 if __name__ == '__main__':
 
