@@ -7,7 +7,6 @@ import time
 class lynxmotion:
     def __init__(self):
         ## serial connection initialization
-        # cage_state and arm_state hold the current states of the crane
         # preferebly there are 2 states in which the cage can be - open or closed, but there can be much more freedom
         # in sellection of the apperature of the cage. same for the position of the arm - up or down
 
@@ -18,7 +17,10 @@ class lynxmotion:
             stopbits=serial.STOPBITS_ONE,
             bytesize=serial.EIGHTBITS
         )
-
+        self.arm_down()
+        self.wrist_down()
+        time.sleep(2)
+        self.open_cage()
 
     ## supporting method
     # message format is according to lynxmotion guide
@@ -53,16 +55,31 @@ class lynxmotion:
             self.use_servo(12, 1100, 900)
             self.use_servo(15, 1900, 900)
 
+    def pick(self):
+        self.close_cage()
+        time.sleep(2)
+        self.arm_up()
+        self.wrist_up()
+        time.sleep(1.5)
+        self.open_cage()
+        time.sleep(2)
+        self.arm_down()
+        self.wrist_down()
+        time.sleep(2)
+        self.open_cage()
+
 
 if __name__ == '__main__':
     cr = lynxmotion()
-    time.sleep(3)
-    cr.close_cage()
     time.sleep(2)
-    cr.arm_up()
-    cr.wrist_up()
-    time.sleep(1.5)
-    cr.open_cage()
+    cr.pick()
+    # time.sleep(3)
+    # cr.close_cage()
+    # time.sleep(2)
+    # cr.arm_up()
+    # cr.wrist_up()
+    # time.sleep(1.5)
+    # cr.open_cage()
     # cr.use_servo(8, 800, 900)  #marked with L.  800=cage closed
     # cr.use_servo(11, 2050,900)  #marked with R.  2050=cage closed
 
