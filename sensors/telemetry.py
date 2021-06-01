@@ -6,8 +6,7 @@ optional to connect either to sitl simulation or the real vehicle with uart
 
 from dronekit import connect, GPSInfo
 import time
-import dronekit_sitl
-import math
+# import dronekit_sitl
 
 
 def check_none(val):

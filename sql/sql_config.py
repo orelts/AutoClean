@@ -1,6 +1,6 @@
 from __future__ import print_function
 import pyodbc
-import pandas as pd
+# import pandas as pd
 
 d_sensors = {
     "alt": "0",
@@ -202,7 +202,7 @@ def set_element_by_condition(curs, elem, condition, table_name, new_val):
     ID = curs.execute(query).fetchnone()
     set_element_in_row(curs, elem, ID[0], table_name, new_val)
 
-def sql_to_excel(conn, table, file_path):
-        pd.read_sql('SELECT * FROM ' + table, conn).to_excel(file_path)
+# def sql_to_excel(conn, table, file_path):
+#         pd.read_sql('SELECT * FROM ' + table, conn).to_excel(file_path)
 
 

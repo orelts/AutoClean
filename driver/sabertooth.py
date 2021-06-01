@@ -17,37 +17,44 @@ class Sabertooth:
             bytesize=serial.EIGHTBITS
         )
         ## mixed mode works only when valid data is first sent to turn and drive commands
-        self.drive_forward(0,work_once=True)
-        self.turn_right(0,work_once=True)
+        self.stop()
+
+    def send_driving_command(self,speed, command, address=128):
+        msg = [address, command, speed, ((address + command + speed) & 0b01111111)]
+        msg = bytes(bytearray(msg))
+        self.ser.write(msg)
+        self.ser.flush()
 
     ## supporting method
     # driving methods must be sent consecutively using loops
     # work_once is used to initialize the motors when creating a sabertooth instance
-    def drive(self,speed,command,address,duration,work_once):
-        end_time = time.time() + duration
+    def drive(self,speed,command,address,duration, work_once):
+        start_time = time.time()
+        end_time = start_time + duration
         while time.time() < end_time:
-            msg = [address, command, speed, ((address + command + speed) & 0b01111111)]
-            msg = bytes(bytearray(msg))
-            self.ser.write(msg)
-            self.ser.flush()
-            if(work_once):
+            self.send_driving_command(speed, command, address)
+            if work_once:
                 break
-    def drive_forward(self,speed, duration=1, work_once=True, address=128):
+        self.stop()
+    def drive_forward(self,speed, duration=3, work_once=False, address=128):
         self.drive(speed,8,address,duration,work_once)
 
-    def drive_backwards(self,speed, duration=1, work_once=True, address=128):
+    def drive_backwards(self,speed, duration=3, work_once=False, address=128):
         self.drive(speed,9,address,duration,work_once)
 
-    def turn_right(self,speed, duration=1, work_once=True, address=128):
+    def turn_right(self,speed, duration=3, work_once=False, address=128):
         self.drive(speed,10,address,duration,work_once)
 
-    def turn_left(self,speed, duration=1, work_once=True, address=128):
+    def turn_left(self,speed, duration=3, work_once=False, address=128):
         self.drive(speed,11,address,duration,work_once)
 
     def stop(self,address=128):
         print("Stop")
-        self.drive_forward(0,work_once=True)
-        self.turn_right(0,work_once=True)
+        for i in range(8,12):
+            msg = [address, i, 0, ((address + i) & 0b01111111)]
+            msg = bytes(bytearray(msg))
+            self.ser.write(msg)
+            self.ser.flush()
 
 
 

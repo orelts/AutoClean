@@ -1,21 +1,48 @@
+from pynput.keyboard import Key, Listener
 from time import sleep
 from sql.sql_config import *
-import os
-
+import threading
+import subprocess
+from driver.sabertooth import *
 
 if __name__ == '__main__':
-
-    # os.system("python2.7 ./sql/sql_initiate.py > initiate_log.txt")
-    # os.system("python2.7 ./sensors/sensors.py --is-vehicle --in-door & > sensors_log.txt")
-    # os.system("python2.7 ./driver/driver.py &")
-    # subprocess.Popen("python3 ./crane/lynxmotion.py", shell=True)
+    running = False
     conn, cursor = connect_to_db()
+    subprocess.run("python3 ./sql/sql_initiate.py", shell=True)
+    subprocess.Popen("python3 ./sensors/sensors.py --is-vehicle --in-door".split(), shell=False)
 
-    while True:
-        angle_ = input("angle")
-        speed_ = input("speed")
-        distance_ = input("distance")
+    def main_loop():
+        global running
+        global p
+        p = subprocess.Popen("python3 ./driver/driver.py".split(), shell=False)
+        while running:
+            print("in runing")
+            angle_ = input("angle")
+            speed_ = input("speed")
+            distance_ = input("distance")
+            update_sql(cursor, conn, "driver", (angle_, speed_, distance_, "0"), False, d_driver)
+            print_sql_row(cursor, "driver")
+            sleep(1)
 
-        print_sql_row(cursor, "driver")
-        update_sql(cursor, conn, "driver", (speed_, "0", angle_, distance_), False, d_driver)
-        sleep(1)
+    def on_press(key):
+        global running
+        global p
+        if key.char == "q":
+            running = False
+            p.terminate()
+            saber = Sabertooth()
+            saber.stop()
+            print("stop")
+
+        elif key.char == "s":
+            running = True
+            print("start")
+            t = threading.Thread(target=main_loop)
+            # start thread
+            t.start()
+
+    # Collect events until released
+    with Listener(
+            on_press=on_press) as listener:
+        listener.join()
+

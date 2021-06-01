@@ -1,6 +1,7 @@
 """!
 @brief sensors: reading data out of sensors of the vehicle to sql server using telemetry class
 """
+
 import telemetry
 import time
 import argparse
@@ -67,6 +68,7 @@ if __name__ == '__main__':
             sensors_info = tuple(vars(sensors_info).values())
             update_sql(cursor, conn, "SensorsInfo", sensors_info, True, d_sensors)
             time.sleep(0.01)
+            print_sql_row(cursor)
         except Exception as e:
             print("something's wrong with transmission. Exception is {}".format(e))
 
