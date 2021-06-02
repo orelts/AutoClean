@@ -35,7 +35,7 @@ class Sabertooth:
             self.send_driving_command(speed, command, address)
             if work_once:
                 break
-        self.stop()
+
     def drive_forward(self,speed, duration=3, work_once=False, address=128):
         self.drive(speed,8,address,duration,work_once)
 

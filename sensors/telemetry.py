@@ -56,7 +56,7 @@ class Telemetry:
         else:
             print("Trying to connect")
             self.vehicle = connect('/dev/ttyTHS2', wait_ready=True, # in j121 it was ttyTHS1
-                                   baud=1500000)  # this is the name of the Pixhawk/Telem2 as the TX2 sees it;
+                                   baud=57600)  # this is the name of the Pixhawk/Telem2 as the TX2 sees it;
             # the same baud rate as configured in the Pixhawk using Mission Planner
         print("Connection success")
 

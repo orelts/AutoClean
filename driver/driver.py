@@ -10,7 +10,7 @@ class Driver(Sabertooth):
     def __init__(self):
         super(Driver, self).__init__()
 
-    def handle_command(self, angle, distance=5, rotation_speed=100, driving_speed = 100 ):
+    def handle_command(self, angle, distance=5, rotation_speed=50, driving_speed=50):
         try:
             print("angle in driver is {}, distance is {} and speed is {}".format(angle, distance, driving_speed))
             # print ("Vehcile rotating in {} degrees for distance {} in speed {}".format(angle, distance, driving_speed))
@@ -22,21 +22,24 @@ class Driver(Sabertooth):
             self.saber.stop()
             raise e
 
+    # def rotate_in_angle(self, angle, speed):
+    #     print("rotation speed {}".format(speed))
+    #     self.turn_left(speed, 1.5, False)
     def rotate_in_angle(self, angle, speed=100):
         try:
+            print(angle)
             initial_heading = get_last_table_elem(cursor, "heading_", "SensorsInfo")
             x = abs(int(initial_heading) - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
-            print("x is {}".format(x))
-            print("angle is {} ". format(angle))
             while x < int(angle):
                 x = abs(int(initial_heading) - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
+                print("diff is {}".format(x-int(angle)))
                 if angle < 0:  # rotate left
                     print("left with speed {}".format(speed))
-                    self.turn_left(speed)
+                    self.turn_left(speed, 2, True)
                 else:
                     print("right with speed {}".format(speed))
-                    self.turn_right(speed)
-
+                    self.turn_right(speed, 2, True)
+            driver.stop()
         except Exception as e:
             self.stop()
             raise e
@@ -44,12 +47,15 @@ class Driver(Sabertooth):
 
     def drive_distance(self, distance, speed=100):
         print("speed in drive distance is {}".format(speed))
-        if speed == 0:
-            return
-        duration = distance/ speed
-        start = time.time()
+        # if speed == 0:
+        #     return
+        # # duration = distance/ speed
+        # # start = time.time()
+        dur = 2
         try:
-            self.drive_forward(speed, duration=5)
+            print("driving speed {}".format(speed))
+            self.drive_forward(speed, duration=dur)
+            self.stop()
             # while time.time() - start < 5:
             #     if distance < 0:  # drive backward
             #         self.saber.drive_backwards(speed)
@@ -59,6 +65,7 @@ class Driver(Sabertooth):
             self.stop()
             raise e
         self.stop()
+
 
 if __name__ == '__main__':
     driver = Driver()
@@ -76,7 +83,7 @@ if __name__ == '__main__':
             distance_ = get_column_idx(cursor, "driver", "distance")
             distance = new_command[0][distance_]
             try:
-                driver.handle_command(int(angle), int(distance), 100, int(speed))
+                driver.handle_command(int(angle), int(distance), 50, int(speed))
                 print("finished command?")
             except Exception as drv_cmd_err:
                 print("driving command with ID={} failed".format(curr_ID))
@@ -84,7 +91,7 @@ if __name__ == '__main__':
             print("finished command?!")
             set_element_in_row(cursor, "is_commited", curr_ID, "driver", "1")
         except Exception as e:
-            driver.saber.stop()
+            driver.stop()
         if keyboard.is_pressed('q'):
             driver.stop()
 
