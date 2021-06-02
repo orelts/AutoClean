@@ -36,16 +36,16 @@ class Sabertooth:
             if work_once:
                 break
 
-    def drive_forward(self,speed, duration=3, work_once=False, address=128):
+    def drive_forward(self,speed, duration=1, work_once=False, address=128):
         self.drive(speed,8,address,duration,work_once)
 
-    def drive_backwards(self,speed, duration=3, work_once=False, address=128):
+    def drive_backwards(self,speed, duration=1, work_once=False, address=128):
         self.drive(speed,9,address,duration,work_once)
 
-    def turn_right(self,speed, duration=3, work_once=False, address=128):
+    def turn_right(self,speed, duration=1, work_once=False, address=128):
         self.drive(speed,10,address,duration,work_once)
 
-    def turn_left(self,speed, duration=3, work_once=False, address=128):
+    def turn_left(self,speed, duration=1, work_once=False, address=128):
         self.drive(speed,11,address,duration,work_once)
 
     def stop(self,address=128):
@@ -64,8 +64,5 @@ if __name__ == '__main__':
 
     saber = Sabertooth()
 
-    saber.drive_forward(50,address=128,duration=5)
-    saber.turn_left(50,address=128,duration=3)
-    saber.stop()
 
 

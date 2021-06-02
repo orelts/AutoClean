@@ -11,7 +11,7 @@ class lynxmotion:
         # in sellection of the apperature of the cage. same for the position of the arm - up or down
 
         self.ser = serial.Serial(
-            port='COM4', ## or ttyUSB0 or ttyS0
+            port='/dev/ttyUSB0', ## or ttyUSB0 or ttyS0 (or COM4 for windows)
             baudrate=9600,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
@@ -32,8 +32,8 @@ class lynxmotion:
 
     ## all movements calibrated physically on robot. don't change numbers unless faulty !!!
     def close_cage(self):
-            cr.use_servo(8, 800, 900)  # marked with L.  800=cage closed
-            cr.use_servo(11, 2050, 900)  # marked with R.  2050=cage closed
+            self.use_servo(8, 800, 900)  # marked with L.  800=cage closed
+            self.use_servo(11, 2050, 900)  # marked with R.  2050=cage closed
 
     def open_cage(self):
             self.use_servo(8, 2300, 900)  # marked with L.  1500=cage open
@@ -48,8 +48,8 @@ class lynxmotion:
             self.use_servo(7, 1200, 900)  # marked with R.  500=towards the black plate
 
     def wrist_down(self):
-            cr.use_servo(12, 800, 900)  # marked with L.  950=on ground
-            cr.use_servo(15, 2200, 900)  # marked with R.  2050=on ground
+            self.use_servo(12, 800, 900)  # marked with L.  950=on ground
+            self.use_servo(15, 2200, 900)  # marked with R.  2050=on ground
 
     def wrist_up(self):
             self.use_servo(12, 1100, 900)
