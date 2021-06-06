@@ -9,6 +9,7 @@ conn, cursor = connect_to_db()
 class Driver(Sabertooth):
     def __init__(self):
         super(Driver, self).__init__()
+        self.last_err = 1
 
     def handle_command(self, angle, distance=5, rotation_speed=50, driving_speed=50):
         try:
@@ -16,7 +17,6 @@ class Driver(Sabertooth):
             # print ("Vehcile rotating in {} degrees for distance {} in speed {}".format(angle, distance, driving_speed))
 
             self.rotate_in_angle(angle, rotation_speed)
-
             self.drive_distance(distance, driving_speed)
         except Exception as e:
             self.saber.stop()
@@ -26,29 +26,51 @@ class Driver(Sabertooth):
     #     print("rotation speed {}".format(speed))
     #     self.turn_left(speed, 1.5, False)
     def rotate_in_angle(self, angle, speed=100):
+        values_for_mean = 5
+        if speed == 0:
+            return
         try:
-            initial_heading = int(get_last_table_elem(cursor, "heading_", "SensorsInfo"))
-            curr = initial_heading
-            diff = abs(initial_heading - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
-            is_at_edge = False
+            vals = get_top_table_elem(cursor, "heading_", "SensorsInfo", values_for_mean)
+            initial_heading = [int(item) for item in vals]
+            initial_heading = sum(initial_heading)/len(initial_heading)
 
-            while diff < int(angle):
+            curr = initial_heading
+            diff = 0
+            is_at_edge = False
+            target = (initial_heading + angle) % 360
+
+            while diff < self.last_err * abs(angle):
                 last = curr
-                curr = int(get_last_table_elem(cursor, "heading_", "SensorsInfo"))
+                vals = get_top_table_elem(cursor, "heading_", "SensorsInfo", values_for_mean)
+                curr = [int(item) for item in vals]
+                curr = sum(curr) / len(curr)
                 if abs(last - curr) > 300:
                     is_at_edge = True
                 if is_at_edge:
                     diff = 360 - abs(initial_heading - curr)
                 else:
                     diff = abs(initial_heading - curr)
-                print("diff is {}".format(diff-int(angle)))
+
+                # print("diff is {}".format(diff))
+                if diff >= 0.95 * abs(angle):
+                    break
+                err = abs(angle) - diff
+                ctl_speed = int(speed * err / abs(angle)) + 15
+                if ctl_speed < 30:
+                    ctl_speed = 30
                 if angle < 0:  # rotate left
-                    print("left with speed {}".format(speed))
-                    self.turn_left(speed, 2, True)
+                    print("left with speed {}".format(ctl_speed))
+                    self.turn_left(ctl_speed, 2, True)
                 else:
-                    print("right with speed {}".format(speed))
-                    self.turn_right(speed, 2, True)
+                    print("right with speed {}".format(ctl_speed))
+                    self.turn_right(ctl_speed, 2, True)
             driver.stop()
+            vals = get_top_table_elem(cursor, "heading_", "SensorsInfo", values_for_mean)
+            finished_actual = [int(item) for item in vals]
+            finished_actual = sum(finished_actual)/lensqsqsqsqsq(finished_actual)
+
+            self.last_err = target / finished_actual
+
         except Exception as e:
             self.stop()
             raise e
@@ -92,7 +114,7 @@ if __name__ == '__main__':
             distance_ = get_column_idx(cursor, "driver", "distance")
             distance = new_command[0][distance_]
             try:
-                driver.handle_command(int(angle), int(distance), 50, int(speed))
+                driver.handle_command(int(angle), int(distance), int(speed), int(speed))
                 print("finished command?")
             except Exception as drv_cmd_err:
                 print("driving command with ID={} failed".format(curr_ID))

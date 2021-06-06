@@ -66,8 +66,8 @@ if __name__ == '__main__':
         try:
             sensors_info = TX_Pixhawk_telem.read_information()
             sensors_info = tuple(vars(sensors_info).values())
-            update_sql(cursor, conn, "SensorsInfo", sensors_info, True, d_sensors)
-            time.sleep(0.01)
+            update_sql(cursor, conn, "SensorsInfo", sensors_info, False, d_sensors)
+            time.sleep(0.1)
         except Exception as e:
             print("something's wrong with transmission. Exception is {}".format(e))
 

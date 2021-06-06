@@ -18,7 +18,7 @@ def command_input():
     return xml_msg
 
 
-TCP_IP = '192.114.105.254'
+TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
 MAX_TRIES = 5
 

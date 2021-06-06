@@ -22,16 +22,15 @@ d_driver = {
     "is_commited": "0",
 }
 
+
 def drop_table(cursor, conn, table, history_table=None):
 
     if history_table is None:
         cursor.execute('''DROP TABLE ''' + table)
     else:
-        cursor.execute(''' ALTER TABLE dbo.''' + table + ''' SET (SYSTEM_VERSIONING = OFF)  
+        cursor.execute(''' ALTER TABLE ''' + table + ''' SET (SYSTEM_VERSIONING = OFF)  
                         DROP TABLE AutoCleanDB.dbo.''' + table + ''' 
                         DROP TABLE AutoCleanDB.dbo.''' + history_table)
-
-
 
     conn.commit()
 
@@ -162,6 +161,7 @@ def get_column_idx(curs, table_name, field):
             return idx
     return None
 
+
 ## printing updated sql data in a dict way (Column, row). optional to choose table name
 def print_sql_row(curs, table_name="SensorsInfo"):
     table_rows = curs.execute("SELECT * FROM " + table_name)
@@ -172,6 +172,7 @@ def print_sql_row(curs, table_name="SensorsInfo"):
             print(row[idx],  end=', ')
         print("")
 
+
 def get_last_table_elem(curs, field, table_name):
     query = "SELECT MAX(id) FROM " + table_name
     ID = curs.execute(query).fetchone()
@@ -179,9 +180,19 @@ def get_last_table_elem(curs, field, table_name):
     x = curs.execute(query).fetchone()
     return x[0]
 
+
+def get_top_table_elem(curs, field, table_name, top):
+    query = "SELECT TOP " + str(top) + " " + field + " FROM " + table_name + " ORDER BY ID DESC"
+    x = curs.execute(query).fetchall()
+    lst = []
+    for i in range(top):
+        lst.append(x[i][0])
+    return lst
+
 def get_row_by_id(curs, ID, table_name):
     table_row = curs.execute("SELECT * FROM " + table_name + " WHERE ID = " + str(ID)).fetchall()
     return table_row
+
 
 def get_row_by_condition(curs, condition, table_name):
     query = "SELECT ID FROM " + table_name + " WHERE " + condition
@@ -191,11 +202,13 @@ def get_row_by_condition(curs, condition, table_name):
     row = get_row_by_id(curs, ID[0], table_name)
     return ID[0], row
 
+
 def set_element_in_row(curs, elem, ID, table_name, new_val):
     query = "SELECT " + elem + " FROM " + table_name + " WHERE ID = " + str(ID)
     curs.execute(query)
     set = '''UPDATE dbo.''' + table_name + ''' SET ''' + elem  + '''=''' + new_val +''' WHERE ID='''  + str(ID)
     curs.execute(set)
+
 
 def set_element_by_condition(curs, elem, condition, table_name, new_val):
     query = "SELECT ID FROM " + table_name + " WHERE " + condition
