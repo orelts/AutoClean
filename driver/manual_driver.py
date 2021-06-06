@@ -13,7 +13,7 @@ if __name__ == '__main__':
     manual_driving_mode = 'OFF'
     end_time = time.time() + 60
     saber = sabertooth.Sabertooth()
-    lynx = lynxmotion.lynxmotion()
+    # lynx = lynxmotion.lynxmotion()
     # saber.drive_forward(50, 5)
     # saber.stop()
     while(manual_driving_mode == 'OFF' and time.time() < end_time):

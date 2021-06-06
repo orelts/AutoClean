@@ -25,7 +25,7 @@ d_driver = {
 def drop_table(cursor, conn, table, history_table=None):
 
     if history_table is None:
-        cursor.execute('''DROP TABLE AutoCleanDB.dbo.''' + table)
+        cursor.execute('''DROP TABLE ''' + table)
     else:
         cursor.execute(''' ALTER TABLE dbo.''' + table + ''' SET (SYSTEM_VERSIONING = OFF)  
                         DROP TABLE AutoCleanDB.dbo.''' + table + ''' 

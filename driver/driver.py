@@ -27,12 +27,21 @@ class Driver(Sabertooth):
     #     self.turn_left(speed, 1.5, False)
     def rotate_in_angle(self, angle, speed=100):
         try:
-            print(angle)
-            initial_heading = get_last_table_elem(cursor, "heading_", "SensorsInfo")
-            x = abs(int(initial_heading) - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
-            while x < int(angle):
-                x = abs(int(initial_heading) - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
-                print("diff is {}".format(x-int(angle)))
+            initial_heading = int(get_last_table_elem(cursor, "heading_", "SensorsInfo"))
+            curr = initial_heading
+            diff = abs(initial_heading - int(get_last_table_elem(cursor, "heading_", "SensorsInfo")))
+            is_at_edge = False
+
+            while diff < int(angle):
+                last = curr
+                curr = int(get_last_table_elem(cursor, "heading_", "SensorsInfo"))
+                if abs(last - curr) > 300:
+                    is_at_edge = True
+                if is_at_edge:
+                    diff = 360 - abs(initial_heading - curr)
+                else:
+                    diff = abs(initial_heading - curr)
+                print("diff is {}".format(diff-int(angle)))
                 if angle < 0:  # rotate left
                     print("left with speed {}".format(speed))
                     self.turn_left(speed, 2, True)

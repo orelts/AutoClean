@@ -36,11 +36,12 @@ try:
                 print("stop")
 
             elif key.char == "s":
-                running = True
-                print("start")
-                t = threading.Thread(target=main_loop)
-                # start thread
-                t.start()
+                if running is False:
+                    running = True
+                    print("start")
+                    t = threading.Thread(target=main_loop)
+                    # start thread
+                    t.start()
 
 
         # Collect events until released
