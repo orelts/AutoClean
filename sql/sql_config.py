@@ -22,6 +22,7 @@ d_driver = {
     "is_commited": "0",
 }
 
+## deletes a table from the SQL
 def drop_table(cursor, conn, table, history_table=None):
 
     if history_table is None:
@@ -35,7 +36,7 @@ def drop_table(cursor, conn, table, history_table=None):
 
     conn.commit()
 
-
+## opens a new database in the server
 def init_database(curs, conn):
     curs.execute('''
                     IF EXISTS 
@@ -110,7 +111,7 @@ def init_sql_table(curs, conn, table, sql_dict, is_one_row, history_table=None):
 
     conn.commit()
 
-
+## connects to the database in order to uses the tables inside
 def connect_to_db():
     server = 'localhost'
     username = 'sa'
@@ -123,7 +124,7 @@ def connect_to_db():
 
     return conn, cursor
 
-
+## in order to insert a line to a table.
 def update_sql(curs, conn, table, data, is_one_row, sql_dict):
     data_line = ""
 
@@ -179,10 +180,12 @@ def get_last_table_elem(curs, field, table_name):
     x = curs.execute(query).fetchone()
     return x[0]
 
+## returns entire row with the input id
 def get_row_by_id(curs, ID, table_name):
     table_row = curs.execute("SELECT * FROM " + table_name + " WHERE ID = " + str(ID)).fetchall()
     return table_row
 
+## will later be used to determine if there exists a row which wasnt already executed
 def get_row_by_condition(curs, condition, table_name):
     query = "SELECT ID FROM " + table_name + " WHERE " + condition
     ID = curs.execute(query).fetchone()
@@ -197,6 +200,7 @@ def set_element_in_row(curs, elem, ID, table_name, new_val):
     set = '''UPDATE dbo.''' + table_name + ''' SET ''' + elem  + '''=''' + new_val +''' WHERE ID='''  + str(ID)
     curs.execute(set)
 
+## will later be used to raise a status of a row to "already excuted"
 def set_element_by_condition(curs, elem, condition, table_name, new_val):
     query = "SELECT ID FROM " + table_name + " WHERE " + condition
     ID = curs.execute(query).fetchnone()
