@@ -183,6 +183,7 @@ def get_last_table_elem(curs, field, table_name):
     return x[0]
 
 
+
 def get_top_table_elem(curs, field, table_name, top):
     query = "SELECT TOP " + str(top) + " " + field + " FROM " + table_name + " ORDER BY ID DESC"
     x = curs.execute(query).fetchall()
@@ -192,11 +193,11 @@ def get_top_table_elem(curs, field, table_name, top):
     return lst
 
 
+
 ## returns entire row with the input id
 def get_row_by_id(curs, ID, table_name):
     table_row = curs.execute("SELECT * FROM " + table_name + " WHERE ID = " + str(ID)).fetchall()
     return table_row
-
 
 
 
@@ -215,8 +216,6 @@ def set_element_in_row(curs, elem, ID, table_name, new_val):
     curs.execute(query)
     set = '''UPDATE dbo.''' + table_name + ''' SET ''' + elem  + '''=''' + new_val +''' WHERE ID='''  + str(ID)
     curs.execute(set)
-
-
 
 
 ## will later be used to raise a status of a row to "already excuted"
