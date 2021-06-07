@@ -11,6 +11,8 @@ class Driver(Sabertooth):
         super(Driver, self).__init__()
         self.last_err = 1
 
+    ## this function uses the 2 following functions to preform a manuever in when given a driving distance and rotating
+    ## angle. first it rotates and then drives.
     def handle_command(self, angle, distance=5, rotation_speed=50, driving_speed=50):
         try:
             print("angle in driver is {}, distance is {} and speed is {}".format(angle, distance, driving_speed))
@@ -25,6 +27,8 @@ class Driver(Sabertooth):
     # def rotate_in_angle(self, angle, speed):
     #     print("rotation speed {}".format(speed))
     #     self.turn_left(speed, 1.5, False)
+    ## this function uses the readings from the pixhawk to determine how much the robot needs to turn.
+    ## it gets the initial heading and calculates the final heading. when it reaches the final heading the robot stops.
     def rotate_in_angle(self, angle, speed=100):
         values_for_mean = 5
         if speed == 0:
@@ -76,6 +80,7 @@ class Driver(Sabertooth):
             raise e
         self.stop()
 
+    ## this function calculates the duration of the drive according to the length needed to be driven.
     def drive_distance(self, distance, speed=100):
         print("speed in drive distance is {}".format(speed))
         # if speed == 0:
@@ -99,6 +104,9 @@ class Driver(Sabertooth):
 
 
 if __name__ == '__main__':
+    ## the driver module forever awates driving and lifting commands.
+    ## when a driving command is loaded to the SQL, the driver parses it and extracts the speed,distance and angle of driving.
+    ## the driver then uses the above functions to send the commands to the lynxmotion and sabertooth modules.
     driver = Driver()
     while True:
         try:
