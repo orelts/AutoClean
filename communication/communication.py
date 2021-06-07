@@ -2,7 +2,7 @@
 import tcp_ip as com
 import time
 
-TCP_IP = '192.114.105.254'
+TCP_IP = '5.29.41.252'
 TCP_PORT = 5005
 
 
