@@ -1,0 +1,156 @@
+\hypertarget{namespaceDriver_1_1manual__driver2}{}\doxysection{Driver.\+manual\+\_\+driver2 Namespace Reference}
+\label{namespaceDriver_1_1manual__driver2}\index{Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespaceDriver_1_1manual__driver2_a5926f0acf20b660dcc1b80ff9253c2d5}{loading}} (key)
+\item 
+def \mbox{\hyperlink{namespaceDriver_1_1manual__driver2_a166c92f7ae725d9787673b90577f7ec8}{on\+\_\+press}} (key)
+\item 
+def \mbox{\hyperlink{namespaceDriver_1_1manual__driver2_adddf54f6111508db918909896587f0f0}{on\+\_\+release}} (key)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceDriver_1_1manual__driver2_a435df927a9a9af8da9774e85ff0a7cdb}{running}} = False
+\item 
+\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_ab53f9e6ace793b348168b96d89057d14}{saber}} = \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth}{sabertooth.\+Sabertooth}}()
+\item 
+\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_ac3c8c415805a2c27cfde0ffabbf7777b}{on\+\_\+press}}
+\item 
+\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_af53e3c627d26b4385feba31eda2dac83}{on\+\_\+release}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_a5926f0acf20b660dcc1b80ff9253c2d5}\label{namespaceDriver_1_1manual__driver2_a5926f0acf20b660dcc1b80ff9253c2d5}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!loading@{loading}}
+\index{loading@{loading}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{loading()}{loading()}}
+{\footnotesize\ttfamily def Driver.\+manual\+\_\+driver2.\+loading (\begin{DoxyParamCaption}\item[{}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 9 of file manual\+\_\+driver2.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9 \textcolor{keyword}{def }\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_a5926f0acf20b660dcc1b80ff9253c2d5}{loading}}(key):}
+\DoxyCodeLine{10     \textcolor{keywordflow}{while} running:}
+\DoxyCodeLine{11         \textcolor{keywordflow}{if} (key == \textcolor{stringliteral}{"w"}):}
+\DoxyCodeLine{12             print(\textcolor{stringliteral}{"drive forward"})}
+\DoxyCodeLine{13             saber.send\_driving\_command(100, 8)}
+\DoxyCodeLine{14             time.sleep(3)}
+\DoxyCodeLine{15         \textcolor{keywordflow}{elif} (key == \textcolor{stringliteral}{"s"}):}
+\DoxyCodeLine{16             print(\textcolor{stringliteral}{"drive backward"})}
+\DoxyCodeLine{17             saber.send\_driving\_command(100, 9)}
+\DoxyCodeLine{18             time.sleep(3)}
+\DoxyCodeLine{19         \textcolor{keywordflow}{elif} (key == \textcolor{stringliteral}{"a"}):}
+\DoxyCodeLine{20             print(\textcolor{stringliteral}{"drive left"})}
+\DoxyCodeLine{21             saber.send\_driving\_command(100, 10)}
+\DoxyCodeLine{22             time.sleep(3)}
+\DoxyCodeLine{23         \textcolor{keywordflow}{elif} (key == \textcolor{stringliteral}{"d"}):}
+\DoxyCodeLine{24             print(\textcolor{stringliteral}{"drive right"})}
+\DoxyCodeLine{25             saber.send\_driving\_command(100, 11)}
+\DoxyCodeLine{26             time.sleep(3)}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_a166c92f7ae725d9787673b90577f7ec8}\label{namespaceDriver_1_1manual__driver2_a166c92f7ae725d9787673b90577f7ec8}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!on\_press@{on\_press}}
+\index{on\_press@{on\_press}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{on\_press()}{on\_press()}}
+{\footnotesize\ttfamily def Driver.\+manual\+\_\+driver2.\+on\+\_\+press (\begin{DoxyParamCaption}\item[{}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 30 of file manual\+\_\+driver2.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \textcolor{keyword}{def }\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_a166c92f7ae725d9787673b90577f7ec8}{on\_press}}(key):}
+\DoxyCodeLine{31     \textcolor{keyword}{global} running}
+\DoxyCodeLine{32     \textcolor{keywordflow}{if} key.char == \textcolor{stringliteral}{"w"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"s"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"a"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"d"}:}
+\DoxyCodeLine{33         running = \textcolor{keyword}{True}}
+\DoxyCodeLine{34         \textcolor{comment}{\# create thread with function `loading`}}
+\DoxyCodeLine{35         t = threading.Thread(target=loading, args = key.char)}
+\DoxyCodeLine{36         \textcolor{comment}{\# start thread}}
+\DoxyCodeLine{37         t.start()}
+\DoxyCodeLine{38     \textcolor{keywordflow}{elif} (key.char == \textcolor{stringliteral}{"q"}):}
+\DoxyCodeLine{39         running = \textcolor{keyword}{False}}
+\DoxyCodeLine{40         print(\textcolor{stringliteral}{"stop"})}
+\DoxyCodeLine{41         saber.stop()}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_adddf54f6111508db918909896587f0f0}\label{namespaceDriver_1_1manual__driver2_adddf54f6111508db918909896587f0f0}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!on\_release@{on\_release}}
+\index{on\_release@{on\_release}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{on\_release()}{on\_release()}}
+{\footnotesize\ttfamily def Driver.\+manual\+\_\+driver2.\+on\+\_\+release (\begin{DoxyParamCaption}\item[{}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file manual\+\_\+driver2.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44 \textcolor{keyword}{def }\mbox{\hyperlink{namespaceDriver_1_1manual__driver2_adddf54f6111508db918909896587f0f0}{on\_release}}(key):}
+\DoxyCodeLine{45     \textcolor{keyword}{global} running}
+\DoxyCodeLine{46     print(key.char)}
+\DoxyCodeLine{47     \textcolor{keywordflow}{if} key.char == \textcolor{stringliteral}{"w"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"s"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"a"} \textcolor{keywordflow}{or} key.char == \textcolor{stringliteral}{"d"}:}
+\DoxyCodeLine{48          running = \textcolor{keyword}{False}}
+\DoxyCodeLine{49          saber.stop()}
+\DoxyCodeLine{50     \textcolor{keywordflow}{if} key == Key.esc:}
+\DoxyCodeLine{51         \textcolor{comment}{\# Stop listener}}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return} \textcolor{keyword}{False}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{comment}{\# Collect events until released}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_ac3c8c415805a2c27cfde0ffabbf7777b}\label{namespaceDriver_1_1manual__driver2_ac3c8c415805a2c27cfde0ffabbf7777b}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!on\_press@{on\_press}}
+\index{on\_press@{on\_press}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{on\_press}{on\_press}}
+{\footnotesize\ttfamily Driver.\+manual\+\_\+driver2.\+on\+\_\+press}
+
+
+
+Definition at line 56 of file manual\+\_\+driver2.\+py.
+
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_af53e3c627d26b4385feba31eda2dac83}\label{namespaceDriver_1_1manual__driver2_af53e3c627d26b4385feba31eda2dac83}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!on\_release@{on\_release}}
+\index{on\_release@{on\_release}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{on\_release}{on\_release}}
+{\footnotesize\ttfamily Driver.\+manual\+\_\+driver2.\+on\+\_\+release}
+
+
+
+Definition at line 57 of file manual\+\_\+driver2.\+py.
+
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_a435df927a9a9af8da9774e85ff0a7cdb}\label{namespaceDriver_1_1manual__driver2_a435df927a9a9af8da9774e85ff0a7cdb}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!running@{running}}
+\index{running@{running}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{running}{running}}
+{\footnotesize\ttfamily bool Driver.\+manual\+\_\+driver2.\+running = False}
+
+
+
+Definition at line 6 of file manual\+\_\+driver2.\+py.
+
+\mbox{\Hypertarget{namespaceDriver_1_1manual__driver2_ab53f9e6ace793b348168b96d89057d14}\label{namespaceDriver_1_1manual__driver2_ab53f9e6ace793b348168b96d89057d14}} 
+\index{Driver.manual\_driver2@{Driver.manual\_driver2}!saber@{saber}}
+\index{saber@{saber}!Driver.manual\_driver2@{Driver.manual\_driver2}}
+\doxysubsubsection{\texorpdfstring{saber}{saber}}
+{\footnotesize\ttfamily Driver.\+manual\+\_\+driver2.\+saber = \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth}{sabertooth.\+Sabertooth}}()}
+
+
+
+Definition at line 8 of file manual\+\_\+driver2.\+py.
+

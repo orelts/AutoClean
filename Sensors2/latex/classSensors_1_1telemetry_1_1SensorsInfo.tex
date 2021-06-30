@@ -1,0 +1,148 @@
+\hypertarget{classSensors_1_1telemetry_1_1SensorsInfo}{}\doxysection{Sensors.\+telemetry.\+Sensors\+Info Class Reference}
+\label{classSensors_1_1telemetry_1_1SensorsInfo}\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+
+
+class for sensors info which saves the needed telem info.  
+
+
+
+
+Collaboration diagram for Sensors.\+telemetry.\+Sensors\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{classSensors_1_1telemetry_1_1SensorsInfo__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_a2425e172e2322ee24ec1ff29bda21b77}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, alt, heading, relative\+\_\+alt, groundspeed, last\+\_\+heartbeat)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_a9e521de5970499fb34192b7a4b6328e3}{alt\+\_\+}}
+\begin{DoxyCompactList}\small\item\em altitue of vehicle in meters \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_ac1df103e8b558fe143256fd7857d3e42}{heading\+\_\+}}
+\begin{DoxyCompactList}\small\item\em current heading in degrees -\/ 0..360, where North = 0 (int). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_a387f12b71167824614f57da64fd538b5}{relative\+\_\+alt\+\_\+}}
+\item 
+\mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_a3699a0ce402d8d827aac0a4dd3bd03c6}{groundspeed\+\_\+}}
+\begin{DoxyCompactList}\small\item\em groundspeed of vehicle in meters/second \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo_a94fd2a77e729de08d5693f80d5599c38}{last\+\_\+heartbeat\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Time since last M\+A\+V\+Link heartbeat was received (in seconds). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+class for sensors info which saves the needed telem info. 
+
+might alter information to suit to our needs 
+
+Definition at line 20 of file telemetry.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_a2425e172e2322ee24ec1ff29bda21b77}\label{classSensors_1_1telemetry_1_1SensorsInfo_a2425e172e2322ee24ec1ff29bda21b77}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def Sensors.\+telemetry.\+Sensors\+Info.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{alt,  }\item[{}]{heading,  }\item[{}]{relative\+\_\+alt,  }\item[{}]{groundspeed,  }\item[{}]{last\+\_\+heartbeat }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file telemetry.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21     \textcolor{keyword}{def }\mbox{\hyperlink{classSensors_1_1telemetry_1_1Telemetry_a66f0bcfc54cb05d3dd90185ba4b089a2}{\_\_init\_\_}}(self, alt, heading, relative\_alt, groundspeed, last\_heartbeat):}
+\DoxyCodeLine{22         }
+\DoxyCodeLine{23         self.alt\_ = alt}
+\DoxyCodeLine{24         }
+\DoxyCodeLine{25         self.heading\_ = heading}
+\DoxyCodeLine{26         self.relative\_alt\_ = relative\_alt}
+\DoxyCodeLine{27         }
+\DoxyCodeLine{28         self.groundspeed\_ = groundspeed}
+\DoxyCodeLine{29         \textcolor{comment}{\# self.home\_location\_ = home\_location}}
+\DoxyCodeLine{30         }
+\DoxyCodeLine{32         self.last\_heartbeat\_ = last\_heartbeat}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_a9e521de5970499fb34192b7a4b6328e3}\label{classSensors_1_1telemetry_1_1SensorsInfo_a9e521de5970499fb34192b7a4b6328e3}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!alt\_@{alt\_}}
+\index{alt\_@{alt\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{alt\_}{alt\_}}
+{\footnotesize\ttfamily Sensors.\+telemetry.\+Sensors\+Info.\+alt\+\_\+}
+
+
+
+altitue of vehicle in meters 
+
+
+
+Definition at line 23 of file telemetry.\+py.
+
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_a3699a0ce402d8d827aac0a4dd3bd03c6}\label{classSensors_1_1telemetry_1_1SensorsInfo_a3699a0ce402d8d827aac0a4dd3bd03c6}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!groundspeed\_@{groundspeed\_}}
+\index{groundspeed\_@{groundspeed\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{groundspeed\_}{groundspeed\_}}
+{\footnotesize\ttfamily Sensors.\+telemetry.\+Sensors\+Info.\+groundspeed\+\_\+}
+
+
+
+groundspeed of vehicle in meters/second 
+
+
+
+Definition at line 28 of file telemetry.\+py.
+
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_ac1df103e8b558fe143256fd7857d3e42}\label{classSensors_1_1telemetry_1_1SensorsInfo_ac1df103e8b558fe143256fd7857d3e42}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!heading\_@{heading\_}}
+\index{heading\_@{heading\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{heading\_}{heading\_}}
+{\footnotesize\ttfamily Sensors.\+telemetry.\+Sensors\+Info.\+heading\+\_\+}
+
+
+
+current heading in degrees -\/ 0..360, where North = 0 (int). 
+
+
+
+Definition at line 25 of file telemetry.\+py.
+
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_a94fd2a77e729de08d5693f80d5599c38}\label{classSensors_1_1telemetry_1_1SensorsInfo_a94fd2a77e729de08d5693f80d5599c38}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!last\_heartbeat\_@{last\_heartbeat\_}}
+\index{last\_heartbeat\_@{last\_heartbeat\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{last\_heartbeat\_}{last\_heartbeat\_}}
+{\footnotesize\ttfamily Sensors.\+telemetry.\+Sensors\+Info.\+last\+\_\+heartbeat\+\_\+}
+
+
+
+Time since last M\+A\+V\+Link heartbeat was received (in seconds). 
+
+The attribute can be used to monitor link activity and implement script-\/specific timeout handling. 
+
+Definition at line 32 of file telemetry.\+py.
+
+\mbox{\Hypertarget{classSensors_1_1telemetry_1_1SensorsInfo_a387f12b71167824614f57da64fd538b5}\label{classSensors_1_1telemetry_1_1SensorsInfo_a387f12b71167824614f57da64fd538b5}} 
+\index{Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}!relative\_alt\_@{relative\_alt\_}}
+\index{relative\_alt\_@{relative\_alt\_}!Sensors.telemetry.SensorsInfo@{Sensors.telemetry.SensorsInfo}}
+\doxysubsubsection{\texorpdfstring{relative\_alt\_}{relative\_alt\_}}
+{\footnotesize\ttfamily Sensors.\+telemetry.\+Sensors\+Info.\+relative\+\_\+alt\+\_\+}
+
+
+
+Definition at line 26 of file telemetry.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{telemetry_8py}{telemetry.\+py}}\end{DoxyCompactItemize}

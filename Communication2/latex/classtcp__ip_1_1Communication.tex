@@ -1,0 +1,351 @@
+\hypertarget{classtcp__ip_1_1Communication}{}\doxysection{tcp\+\_\+ip.\+Communication Class Reference}
+\label{classtcp__ip_1_1Communication}\index{tcp\_ip.Communication@{tcp\_ip.Communication}}
+
+
+class for \mbox{\hyperlink{classtcp__ip_1_1Communication}{Communication}} with ground station server using T\+C\+P-\/P socket.  
+
+
+
+
+Collaboration diagram for tcp\+\_\+ip.\+Communication\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{classtcp__ip_1_1Communication__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a87c3710256097e709bacef031a25b952}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classtcp__ip_1_1Communication_ad47dded02cd9d64a64bb028d171b2783}{ip}}, \mbox{\hyperlink{classtcp__ip_1_1Communication_a0a3a95d3a0bb54e1b62ab8b5b18081b3}{port}})
+\begin{DoxyCompactList}\small\item\em Constructor, gets the ip of the server and the port the server listens on. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a8b14f1225a493f167875c2db87bb1dde}{create}} (self)
+\begin{DoxyCompactList}\small\item\em creates the tcp-\/ip socket. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a662b63cb87a80b9040b159bdb199c95b}{transmit}} (self, data)
+\begin{DoxyCompactList}\small\item\em transmit data to the server sends msg in the format of \char`\"{}$^\wedge$$<$msg$>$$\vert$\char`\"{} where $^\wedge$ is the header and $\vert$ is the footer. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a1cc1916097dcfc8b13f79cf9902f516a}{compose\+Msg}} (self, msg=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em composing the msg for transmission @params sensors information \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a0e60f5f8cc2746e81e96a3519fe58792}{get\+\_\+cmds}} (self)
+\begin{DoxyCompactList}\small\item\em receive msg from the server @params -\/ \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_a8590d33ca516ecf59e7fd68f06ba2846}{handle\+\_\+data}} (self, data)
+\item 
+def \mbox{\hyperlink{classtcp__ip_1_1Communication_adfa258770ac818bfbff51a10135b9a43}{close}} (self)
+\begin{DoxyCompactList}\small\item\em closing the tcp-\/ip socket of the client-\/server \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtcp__ip_1_1Communication_ad47dded02cd9d64a64bb028d171b2783}{ip}}
+\item 
+\mbox{\hyperlink{classtcp__ip_1_1Communication_a0a3a95d3a0bb54e1b62ab8b5b18081b3}{port}}
+\item 
+\mbox{\hyperlink{classtcp__ip_1_1Communication_adcadc6965b68673ebf1064ca7da16278}{header}}
+\item 
+\mbox{\hyperlink{classtcp__ip_1_1Communication_acc9f599ef1cd9872f72d613bc7893d46}{footer}}
+\item 
+\mbox{\hyperlink{classtcp__ip_1_1Communication_a806b6eb34cb8dd4062e3432cc892a6e7}{sock}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+class for \mbox{\hyperlink{classtcp__ip_1_1Communication}{Communication}} with ground station server using T\+C\+P-\/P socket. 
+
+we can receive msg and transmit msg to the ground station 
+
+Definition at line 19 of file tcp\+\_\+ip.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a87c3710256097e709bacef031a25b952}\label{classtcp__ip_1_1Communication_a87c3710256097e709bacef031a25b952}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ip,  }\item[{}]{port }\end{DoxyParamCaption})}
+
+
+
+Constructor, gets the ip of the server and the port the server listens on. 
+
+usage for example\+: trans = Transmission(\textquotesingle{}192.\+168.\+16.\+101\textquotesingle{}, 10001, \textquotesingle{}10\textquotesingle{}) 
+
+Definition at line 22 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a87c3710256097e709bacef031a25b952}{\_\_init\_\_}}(self, ip, port):}
+\DoxyCodeLine{23         self.ip = ip}
+\DoxyCodeLine{24         self.port = port}
+\DoxyCodeLine{25         self.header = \textcolor{stringliteral}{'\string^'}}
+\DoxyCodeLine{26         self.footer = \textcolor{stringliteral}{'|'}}
+\DoxyCodeLine{27         self.create()}
+\DoxyCodeLine{28 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_adfa258770ac818bfbff51a10135b9a43}\label{classtcp__ip_1_1Communication_adfa258770ac818bfbff51a10135b9a43}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!close@{close}}
+\index{close@{close}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+close (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+closing the tcp-\/ip socket of the client-\/server 
+
+
+
+Definition at line 92 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_adfa258770ac818bfbff51a10135b9a43}{close}}(self):}
+\DoxyCodeLine{93         print(sys.stderr, \textcolor{stringliteral}{'closing socket'})}
+\DoxyCodeLine{94         self.sock.\mbox{\hyperlink{classtcp__ip_1_1Communication_adfa258770ac818bfbff51a10135b9a43}{close}}()}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \textcolor{comment}{\# class Op(enum.Enum):}}
+\DoxyCodeLine{99 \textcolor{comment}{\#     drive = 1}}
+\DoxyCodeLine{100 \textcolor{comment}{\#     info = 2}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{comment}{\# class Data:}}
+\DoxyCodeLine{104 \textcolor{comment}{\#     def \_\_init\_\_(self, op):}}
+\DoxyCodeLine{105 \textcolor{comment}{\#         self.operation = op}}
+\DoxyCodeLine{106 \textcolor{comment}{\#}}
+\DoxyCodeLine{107 \textcolor{comment}{\#}}
+\DoxyCodeLine{108 \textcolor{comment}{\# class Instructions(Data):}}
+\DoxyCodeLine{109 \textcolor{comment}{\#     def \_\_init\_\_(self, op, dir, coordinates):}}
+\DoxyCodeLine{110 \textcolor{comment}{\#         Data.\_\_init\_\_(self,op)}}
+\DoxyCodeLine{111 \textcolor{comment}{\#         self.coordinates = coordinates}}
+\DoxyCodeLine{112 \textcolor{comment}{\#         self.dir = dir}}
+\DoxyCodeLine{113 \textcolor{comment}{\#}}
+\DoxyCodeLine{114 \textcolor{comment}{\#     def create\_xml(self):}}
+\DoxyCodeLine{115 \textcolor{comment}{\#         content = """ <data>}}
+\DoxyCodeLine{116 \textcolor{comment}{\#                         <cmd type="instruction">}}
+\DoxyCodeLine{117 \textcolor{comment}{\#                            <dir>""" + str(self.dir) + """ </dir>}}
+\DoxyCodeLine{118 \textcolor{comment}{\#                            <coordinates>""" + str(self.coordinates) + """ </coordinates>}}
+\DoxyCodeLine{119 \textcolor{comment}{\#                         </cmd>}}
+\DoxyCodeLine{120 \textcolor{comment}{\#                     </data>"""}}
+\DoxyCodeLine{121 \textcolor{comment}{\#         return content}}
+\DoxyCodeLine{122 \textcolor{comment}{\#}}
+\DoxyCodeLine{123 \textcolor{comment}{\#}}
+\DoxyCodeLine{124 \textcolor{comment}{\# class Info(Data):}}
+\DoxyCodeLine{125 \textcolor{comment}{\#     def \_\_init\_\_(self, op, info):}}
+\DoxyCodeLine{126 \textcolor{comment}{\#         Data.\_\_init\_\_(self, op)}}
+\DoxyCodeLine{127 \textcolor{comment}{\#         self.info = info}}
+\DoxyCodeLine{128 \textcolor{comment}{\#}}
+\DoxyCodeLine{129 \textcolor{comment}{\#     def create\_xml(self):}}
+\DoxyCodeLine{130 \textcolor{comment}{\#         content = """ <data>}}
+\DoxyCodeLine{131 \textcolor{comment}{\#                          <cmd type="info">}}
+\DoxyCodeLine{132 \textcolor{comment}{\#                            <info>""" + str(self.info) + """ </info>}}
+\DoxyCodeLine{133 \textcolor{comment}{\#                         </cmd>}}
+\DoxyCodeLine{134 \textcolor{comment}{\#                     </data>"""}}
+\DoxyCodeLine{135 \textcolor{comment}{\#}}
+\DoxyCodeLine{136 \textcolor{comment}{\#         return content}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a1cc1916097dcfc8b13f79cf9902f516a}\label{classtcp__ip_1_1Communication_a1cc1916097dcfc8b13f79cf9902f516a}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!composeMsg@{composeMsg}}
+\index{composeMsg@{composeMsg}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{composeMsg()}{composeMsg()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+compose\+Msg (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+composing the msg for transmission @params sensors information 
+
+\begin{DoxyReturn}{Returns}
+msg 
+\end{DoxyReturn}
+
+
+Definition at line 57 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a1cc1916097dcfc8b13f79cf9902f516a}{composeMsg}}(self, msg = ""):}
+\DoxyCodeLine{58         \textcolor{keywordflow}{return} msg}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a8b14f1225a493f167875c2db87bb1dde}\label{classtcp__ip_1_1Communication_a8b14f1225a493f167875c2db87bb1dde}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!create@{create}}
+\index{create@{create}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+create (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+creates the tcp-\/ip socket. 
+
+send pre msg. this method is called from the constructor. 
+
+Definition at line 31 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a8b14f1225a493f167875c2db87bb1dde}{create}}(self):}
+\DoxyCodeLine{32         self.sock = socket.socket(socket.AF\_INET, socket.SOCK\_STREAM)  \textcolor{comment}{\# create a TCP/IP socket}}
+\DoxyCodeLine{33         print(\textcolor{stringliteral}{'connecting to \{\} port \{\}'} .format(self.ip, self.port))}
+\DoxyCodeLine{34         self.sock.connect((self.ip, self.port))  \textcolor{comment}{\# connect the socket to the port where the server is listening}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         \textcolor{comment}{\# pre-\/message}}
+\DoxyCodeLine{37         message = self.header + \textcolor{stringliteral}{'N'} + \textcolor{stringliteral}{','}.join([ \textcolor{stringliteral}{'-\/1'}, \textcolor{stringliteral}{'-\/1'}, \textcolor{stringliteral}{'-\/1'}]) + self.footer}
+\DoxyCodeLine{38         time.sleep(1)}
+\DoxyCodeLine{39 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a0e60f5f8cc2746e81e96a3519fe58792}\label{classtcp__ip_1_1Communication_a0e60f5f8cc2746e81e96a3519fe58792}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!get\_cmds@{get\_cmds}}
+\index{get\_cmds@{get\_cmds}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{get\_cmds()}{get\_cmds()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+get\+\_\+cmds (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+receive msg from the server @params -\/ 
+
+\begin{DoxyReturn}{Returns}
+received msg 
+\end{DoxyReturn}
+
+
+Definition at line 64 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a0e60f5f8cc2746e81e96a3519fe58792}{get\_cmds}}(self):}
+\DoxyCodeLine{65         ready = select.select([self.sock], [], [], 1)}
+\DoxyCodeLine{66         \textcolor{keywordflow}{if} ready[0]:}
+\DoxyCodeLine{67             data = self.sock.recv(4096)}
+\DoxyCodeLine{68             \textcolor{keywordflow}{return} data}
+\DoxyCodeLine{69         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{70             \textcolor{keywordflow}{return} \textcolor{keywordtype}{None}}
+\DoxyCodeLine{71 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a8590d33ca516ecf59e7fd68f06ba2846}\label{classtcp__ip_1_1Communication_a8590d33ca516ecf59e7fd68f06ba2846}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!handle\_data@{handle\_data}}
+\index{handle\_data@{handle\_data}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{handle\_data()}{handle\_data()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+handle\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a8590d33ca516ecf59e7fd68f06ba2846}{handle\_data}}(self, data):}
+\DoxyCodeLine{73         \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{74             \textcolor{keywordflow}{if} data[:4] == \textcolor{stringliteral}{"info"}:}
+\DoxyCodeLine{75                 num\_of\_rows\_to\_print = int(data[5])}
+\DoxyCodeLine{76                 conn, cursor = connect\_to\_db()}
+\DoxyCodeLine{77                 old\_stdout = sys.stdout}
+\DoxyCodeLine{78                 new\_stdout = io.StringIO()}
+\DoxyCodeLine{79                 sys.stdout = new\_stdout}
+\DoxyCodeLine{80                 print\_sql\_row(cursor, \textcolor{stringliteral}{"SensorsInfo"}, num\_of\_rows\_to\_print)}
+\DoxyCodeLine{81                 info = new\_stdout.getvalue()}
+\DoxyCodeLine{82                 sys.stdout = old\_stdout}
+\DoxyCodeLine{83                 self.transmit(info)}
+\DoxyCodeLine{84             \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{85                 \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{86         \textcolor{keywordflow}{except} Exception \textcolor{keyword}{as} e:}
+\DoxyCodeLine{87             self.transmit(str(e))}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a662b63cb87a80b9040b159bdb199c95b}\label{classtcp__ip_1_1Communication_a662b63cb87a80b9040b159bdb199c95b}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!transmit@{transmit}}
+\index{transmit@{transmit}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{transmit()}{transmit()}}
+{\footnotesize\ttfamily def tcp\+\_\+ip.\+Communication.\+transmit (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+
+
+transmit data to the server sends msg in the format of \char`\"{}$^\wedge$$<$msg$>$$\vert$\char`\"{} where $^\wedge$ is the header and $\vert$ is the footer. 
+
+the msg is created by the compose\+Msg method. 
+
+Definition at line 43 of file tcp\+\_\+ip.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43     \textcolor{keyword}{def }\mbox{\hyperlink{classtcp__ip_1_1Communication_a662b63cb87a80b9040b159bdb199c95b}{transmit}}(self, data):  \textcolor{comment}{\# if data = None, will send a default message}}
+\DoxyCodeLine{44         \textcolor{comment}{\# Send data}}
+\DoxyCodeLine{45         \textcolor{keywordflow}{if} data != \textcolor{stringliteral}{""}:}
+\DoxyCodeLine{46             message = self.composeMsg(data)}
+\DoxyCodeLine{47         \textcolor{keywordflow}{else}:  \textcolor{comment}{\# default msg}}
+\DoxyCodeLine{48             message = self.composeMsg()}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         print(\textcolor{stringliteral}{'sending "\{\}"'}.format(message))}
+\DoxyCodeLine{51         self.sock.sendall(message.encode())}
+\DoxyCodeLine{52         time.sleep(1)}
+\DoxyCodeLine{53 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_acc9f599ef1cd9872f72d613bc7893d46}\label{classtcp__ip_1_1Communication_acc9f599ef1cd9872f72d613bc7893d46}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!footer@{footer}}
+\index{footer@{footer}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{footer}{footer}}
+{\footnotesize\ttfamily tcp\+\_\+ip.\+Communication.\+footer}
+
+
+
+Definition at line 26 of file tcp\+\_\+ip.\+py.
+
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_adcadc6965b68673ebf1064ca7da16278}\label{classtcp__ip_1_1Communication_adcadc6965b68673ebf1064ca7da16278}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!header@{header}}
+\index{header@{header}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{header}{header}}
+{\footnotesize\ttfamily tcp\+\_\+ip.\+Communication.\+header}
+
+
+
+Definition at line 25 of file tcp\+\_\+ip.\+py.
+
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_ad47dded02cd9d64a64bb028d171b2783}\label{classtcp__ip_1_1Communication_ad47dded02cd9d64a64bb028d171b2783}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!ip@{ip}}
+\index{ip@{ip}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{ip}{ip}}
+{\footnotesize\ttfamily tcp\+\_\+ip.\+Communication.\+ip}
+
+
+
+Definition at line 23 of file tcp\+\_\+ip.\+py.
+
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a0a3a95d3a0bb54e1b62ab8b5b18081b3}\label{classtcp__ip_1_1Communication_a0a3a95d3a0bb54e1b62ab8b5b18081b3}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!port@{port}}
+\index{port@{port}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily tcp\+\_\+ip.\+Communication.\+port}
+
+
+
+Definition at line 24 of file tcp\+\_\+ip.\+py.
+
+\mbox{\Hypertarget{classtcp__ip_1_1Communication_a806b6eb34cb8dd4062e3432cc892a6e7}\label{classtcp__ip_1_1Communication_a806b6eb34cb8dd4062e3432cc892a6e7}} 
+\index{tcp\_ip.Communication@{tcp\_ip.Communication}!sock@{sock}}
+\index{sock@{sock}!tcp\_ip.Communication@{tcp\_ip.Communication}}
+\doxysubsubsection{\texorpdfstring{sock}{sock}}
+{\footnotesize\ttfamily tcp\+\_\+ip.\+Communication.\+sock}
+
+
+
+Definition at line 32 of file tcp\+\_\+ip.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tcp__ip_8py}{tcp\+\_\+ip.\+py}}\end{DoxyCompactItemize}

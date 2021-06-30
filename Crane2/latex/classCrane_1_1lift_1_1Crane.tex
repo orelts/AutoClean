@@ -1,0 +1,98 @@
+\hypertarget{classCrane_1_1lift_1_1Crane}{}\doxysection{Crane.\+lift.\+Crane Class Reference}
+\label{classCrane_1_1lift_1_1Crane}\index{Crane.lift.Crane@{Crane.lift.Crane}}
+
+
+Collaboration diagram for Crane.\+lift.\+Crane\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classCrane_1_1lift_1_1Crane__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classCrane_1_1lift_1_1Crane_ad4303bcd1d20c108e27c60b7c263b586}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+def \mbox{\hyperlink{classCrane_1_1lift_1_1Crane_a07023d4a2df1317c4f7aea0bc68e4c0d}{move\+\_\+arm}} (self, msg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCrane_1_1lift_1_1Crane_ad7706a99a3edbf8f63ebfdddc239ac3f}{ser}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file lift.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCrane_1_1lift_1_1Crane_ad4303bcd1d20c108e27c60b7c263b586}\label{classCrane_1_1lift_1_1Crane_ad4303bcd1d20c108e27c60b7c263b586}} 
+\index{Crane.lift.Crane@{Crane.lift.Crane}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Crane.lift.Crane@{Crane.lift.Crane}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def Crane.\+lift.\+Crane.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line 7 of file lift.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7     \textcolor{keyword}{def }\_\_init\_\_(self):}
+\DoxyCodeLine{8         self.ser = serial.Serial(}
+\DoxyCodeLine{9             port=\textcolor{stringliteral}{'/dev/ttyUSB0'},}
+\DoxyCodeLine{10             baudrate=9600,}
+\DoxyCodeLine{11             parity=serial.PARITY\_NONE,}
+\DoxyCodeLine{12             stopbits=serial.STOPBITS\_ONE,}
+\DoxyCodeLine{13             bytesize=serial.EIGHTBITS}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCrane_1_1lift_1_1Crane_a07023d4a2df1317c4f7aea0bc68e4c0d}\label{classCrane_1_1lift_1_1Crane_a07023d4a2df1317c4f7aea0bc68e4c0d}} 
+\index{Crane.lift.Crane@{Crane.lift.Crane}!move\_arm@{move\_arm}}
+\index{move\_arm@{move\_arm}!Crane.lift.Crane@{Crane.lift.Crane}}
+\doxysubsubsection{\texorpdfstring{move\_arm()}{move\_arm()}}
+{\footnotesize\ttfamily def Crane.\+lift.\+Crane.\+move\+\_\+arm (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 16 of file lift.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16     \textcolor{keyword}{def }move\_arm(self, msg):}
+\DoxyCodeLine{17         \textcolor{comment}{\# msg = "\#" + str(servo\_num) + "P" + str(location)+"S" + str(speed)+ "\(\backslash\)r"}}
+\DoxyCodeLine{18         print(\textcolor{stringliteral}{"moving arm msg \{\}\(\backslash\)n"}.format(msg))}
+\DoxyCodeLine{19         msg = bytes(bytearray(msg.encode()))}
+\DoxyCodeLine{20         self.ser.write(msg)}
+\DoxyCodeLine{21         self.ser.flush()}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classCrane_1_1lift_1_1Crane_ad7706a99a3edbf8f63ebfdddc239ac3f}\label{classCrane_1_1lift_1_1Crane_ad7706a99a3edbf8f63ebfdddc239ac3f}} 
+\index{Crane.lift.Crane@{Crane.lift.Crane}!ser@{ser}}
+\index{ser@{ser}!Crane.lift.Crane@{Crane.lift.Crane}}
+\doxysubsubsection{\texorpdfstring{ser}{ser}}
+{\footnotesize\ttfamily Crane.\+lift.\+Crane.\+ser}
+
+
+
+Definition at line 8 of file lift.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lift_8py}{lift.\+py}}\end{DoxyCompactItemize}

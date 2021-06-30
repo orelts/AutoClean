@@ -1,0 +1,249 @@
+\hypertarget{classDriver_1_1sabertooth_1_1Sabertooth}{}\doxysection{Driver.\+sabertooth.\+Sabertooth Class Reference}
+\label{classDriver_1_1sabertooth_1_1Sabertooth}\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+
+
+Inheritance diagram for Driver.\+sabertooth.\+Sabertooth\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classDriver_1_1sabertooth_1_1Sabertooth__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Driver.\+sabertooth.\+Sabertooth\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classDriver_1_1sabertooth_1_1Sabertooth__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_ab7215895b3d3c6a0f3570f1c85a98165}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a4cd6186b31190697a3d22c922477a8ff}{send\+\_\+driving\+\_\+command}} (self, speed, command, address=128)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a99fa14cbf213680c4ab8afd93372285c}{drive}} (self, speed, command, address, duration, work\+\_\+once)
+\begin{DoxyCompactList}\small\item\em supporting method driving methods must be sent consecutively using loops work\+\_\+once is used to initialize the motors when creating a sabertooth instance \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a81edeff0745bb7b89efbe2988284c995}{drive\+\_\+forward}} (self, speed, duration=1, work\+\_\+once=False, address=128)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a172045c8ab92266a856cffa38743295f}{drive\+\_\+backwards}} (self, speed, duration=1, work\+\_\+once=False, address=128)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a37b8168b3c1613e556e63a68322e7785}{turn\+\_\+right}} (self, speed, duration=1, work\+\_\+once=False, address=128)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a069b1f72f16c20756a147a89ae69a591}{turn\+\_\+left}} (self, speed, duration=1, work\+\_\+once=False, address=128)
+\item 
+def \mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_a723cd5949faf31bd82fd5350d759662b}{stop}} (self, address=128)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDriver_1_1sabertooth_1_1Sabertooth_ab87d920882600501b0274efc99ac66e1}{ser}}
+\begin{DoxyCompactList}\small\item\em serial connection initialization according to the sabertooth guide tty\+S0 is U\+A\+R\+T0 in auvidea j121 board \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file sabertooth.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_ab7215895b3d3c6a0f3570f1c85a98165}\label{classDriver_1_1sabertooth_1_1Sabertooth_ab7215895b3d3c6a0f3570f1c85a98165}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Reimplemented in \mbox{\hyperlink{classDriver_1_1driver_1_1Driver_a05533dffc9464dccd94e1ec79f4666c6}{Driver.\+driver.\+Driver}}.
+
+
+
+Definition at line 9 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9     \textcolor{keyword}{def }\_\_init\_\_(self):}
+\DoxyCodeLine{10         }
+\DoxyCodeLine{12         self.ser = serial.Serial(}
+\DoxyCodeLine{13             port=\textcolor{stringliteral}{'/dev/ttyS0'},}
+\DoxyCodeLine{14             baudrate=9600,}
+\DoxyCodeLine{15             parity=serial.PARITY\_NONE,}
+\DoxyCodeLine{16             stopbits=serial.STOPBITS\_ONE,}
+\DoxyCodeLine{17             bytesize=serial.EIGHTBITS}
+\DoxyCodeLine{18         )}
+\DoxyCodeLine{19         }
+\DoxyCodeLine{20         self.stop()}
+\DoxyCodeLine{21 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a99fa14cbf213680c4ab8afd93372285c}\label{classDriver_1_1sabertooth_1_1Sabertooth_a99fa14cbf213680c4ab8afd93372285c}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!drive@{drive}}
+\index{drive@{drive}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{drive()}{drive()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+drive (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{command,  }\item[{}]{address,  }\item[{}]{duration,  }\item[{}]{work\+\_\+once }\end{DoxyParamCaption})}
+
+
+
+supporting method driving methods must be sent consecutively using loops work\+\_\+once is used to initialize the motors when creating a sabertooth instance 
+
+
+
+Definition at line 31 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31     \textcolor{keyword}{def }drive(self,speed,command,address,duration, work\_once):}
+\DoxyCodeLine{32         start\_time = time.time()}
+\DoxyCodeLine{33         end\_time = start\_time + duration}
+\DoxyCodeLine{34         \textcolor{keywordflow}{while} time.time() < end\_time:}
+\DoxyCodeLine{35             self.send\_driving\_command(speed, command, address)}
+\DoxyCodeLine{36             \textcolor{keywordflow}{if} work\_once:}
+\DoxyCodeLine{37                 \textcolor{keywordflow}{break}}
+\DoxyCodeLine{38 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a172045c8ab92266a856cffa38743295f}\label{classDriver_1_1sabertooth_1_1Sabertooth_a172045c8ab92266a856cffa38743295f}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!drive\_backwards@{drive\_backwards}}
+\index{drive\_backwards@{drive\_backwards}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{drive\_backwards()}{drive\_backwards()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+drive\+\_\+backwards (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{duration = {\ttfamily 1},  }\item[{}]{work\+\_\+once = {\ttfamily False},  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42     \textcolor{keyword}{def }drive\_backwards(self,speed, duration=1, work\_once=False, address=128):}
+\DoxyCodeLine{43         self.drive(speed,9,address,duration,work\_once)}
+\DoxyCodeLine{44 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a81edeff0745bb7b89efbe2988284c995}\label{classDriver_1_1sabertooth_1_1Sabertooth_a81edeff0745bb7b89efbe2988284c995}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!drive\_forward@{drive\_forward}}
+\index{drive\_forward@{drive\_forward}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{drive\_forward()}{drive\_forward()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+drive\+\_\+forward (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{duration = {\ttfamily 1},  }\item[{}]{work\+\_\+once = {\ttfamily False},  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 39 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39     \textcolor{keyword}{def }drive\_forward(self,speed, duration=1, work\_once=False, address=128):}
+\DoxyCodeLine{40         self.drive(speed,8,address,duration,work\_once)}
+\DoxyCodeLine{41 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a4cd6186b31190697a3d22c922477a8ff}\label{classDriver_1_1sabertooth_1_1Sabertooth_a4cd6186b31190697a3d22c922477a8ff}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!send\_driving\_command@{send\_driving\_command}}
+\index{send\_driving\_command@{send\_driving\_command}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{send\_driving\_command()}{send\_driving\_command()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+send\+\_\+driving\+\_\+command (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{command,  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 22 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22     \textcolor{keyword}{def }send\_driving\_command(self,speed, command, address=128):}
+\DoxyCodeLine{23         msg = [address, command, speed, ((address + command + speed) \& 0b01111111)]}
+\DoxyCodeLine{24         msg = bytes(bytearray(msg))}
+\DoxyCodeLine{25         self.ser.write(msg)}
+\DoxyCodeLine{26         self.ser.flush()}
+\DoxyCodeLine{27 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a723cd5949faf31bd82fd5350d759662b}\label{classDriver_1_1sabertooth_1_1Sabertooth_a723cd5949faf31bd82fd5350d759662b}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!stop@{stop}}
+\index{stop@{stop}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+stop (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 51 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51     \textcolor{keyword}{def }stop(self,address=128):}
+\DoxyCodeLine{52         print(\textcolor{stringliteral}{"Stop"})}
+\DoxyCodeLine{53         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(8,12):}
+\DoxyCodeLine{54             msg = [address, i, 0, ((address + i) \& 0b01111111)]}
+\DoxyCodeLine{55             msg = bytes(bytearray(msg))}
+\DoxyCodeLine{56             self.ser.write(msg)}
+\DoxyCodeLine{57             self.ser.flush()}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a069b1f72f16c20756a147a89ae69a591}\label{classDriver_1_1sabertooth_1_1Sabertooth_a069b1f72f16c20756a147a89ae69a591}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!turn\_left@{turn\_left}}
+\index{turn\_left@{turn\_left}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{turn\_left()}{turn\_left()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+turn\+\_\+left (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{duration = {\ttfamily 1},  }\item[{}]{work\+\_\+once = {\ttfamily False},  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48     \textcolor{keyword}{def }turn\_left(self,speed, duration=1, work\_once=False, address=128):}
+\DoxyCodeLine{49         self.drive(speed,11,address,duration,work\_once)}
+\DoxyCodeLine{50 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_a37b8168b3c1613e556e63a68322e7785}\label{classDriver_1_1sabertooth_1_1Sabertooth_a37b8168b3c1613e556e63a68322e7785}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!turn\_right@{turn\_right}}
+\index{turn\_right@{turn\_right}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{turn\_right()}{turn\_right()}}
+{\footnotesize\ttfamily def Driver.\+sabertooth.\+Sabertooth.\+turn\+\_\+right (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{speed,  }\item[{}]{duration = {\ttfamily 1},  }\item[{}]{work\+\_\+once = {\ttfamily False},  }\item[{}]{address = {\ttfamily 128} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 45 of file sabertooth.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45     \textcolor{keyword}{def }turn\_right(self,speed, duration=1, work\_once=False, address=128):}
+\DoxyCodeLine{46         self.drive(speed,10,address,duration,work\_once)}
+\DoxyCodeLine{47 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classDriver_1_1sabertooth_1_1Sabertooth_ab87d920882600501b0274efc99ac66e1}\label{classDriver_1_1sabertooth_1_1Sabertooth_ab87d920882600501b0274efc99ac66e1}} 
+\index{Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}!ser@{ser}}
+\index{ser@{ser}!Driver.sabertooth.Sabertooth@{Driver.sabertooth.Sabertooth}}
+\doxysubsubsection{\texorpdfstring{ser}{ser}}
+{\footnotesize\ttfamily Driver.\+sabertooth.\+Sabertooth.\+ser}
+
+
+
+serial connection initialization according to the sabertooth guide tty\+S0 is U\+A\+R\+T0 in auvidea j121 board 
+
+
+
+Definition at line 12 of file sabertooth.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sabertooth_8py}{sabertooth.\+py}}\end{DoxyCompactItemize}
