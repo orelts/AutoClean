@@ -1,0 +1,197 @@
+\hypertarget{namespaceSensors_1_1sensors}{}\doxysection{Sensors.\+sensors Namespace Reference}
+\label{namespaceSensors_1_1sensors}\index{Sensors.sensors@{Sensors.sensors}}
+
+
+sensors\+: reading data out of sensors of the vehicle to sql server using telemetry class  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}{export\+\_\+sensors\+\_\+to\+\_\+excel}} ()
+\begin{DoxyCompactList}\small\item\em this function runs as a parallel process in sensors module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_ab4622d023bc5f3c2214f5c7f2a5d6499}{module\+\_\+path}} = os.\+path.\+abspath(os.\+getcwd())
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a1cbaa80dc1c303a10c8dc766e1368a59}{parser}} = argparse.\+Argument\+Parser(description=\char`\"{}Drone detection project\char`\"{})
+\begin{DoxyCompactList}\small\item\em action chooses true or false hardcoded for the arguments of this module \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a3626b96a0a13f784ca0d397d8acebf14}{action}}
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a7b2404c0d4841b1169d22635299d14af}{help}}
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a7f212bc965f84611a37c15e31eabad9e}{args}} = parser.\+parse\+\_\+args()
+\item 
+int \mbox{\hyperlink{namespaceSensors_1_1sensors_a34c7b4daeac196a798751833062fd862}{H\+I\+S\+T\+O\+R\+Y\+\_\+\+W\+R\+I\+TE}} = 10
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a8810847e1c26c911d7b96f0a0ddc996a}{conn}}
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_af9d5c54049949cbd35f968c9f366691c}{cursor}}
+\item 
+bool \mbox{\hyperlink{namespaceSensors_1_1sensors_af08e5e1a088abcb3bbdd1601b1d19d2e}{vehicle\+Connected}} = True
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_a5cde740b30e8ea4df588f10dac438c4a}{T\+X\+\_\+\+Pixhawk\+\_\+telem}} = \mbox{\hyperlink{classSensors_1_1telemetry_1_1Telemetry}{telemetry.\+Telemetry}}(\mbox{\hyperlink{namespaceSensors_1_1sensors_af08e5e1a088abcb3bbdd1601b1d19d2e}{vehicle\+Connected}})
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_aa1f6c277306230be6fa91dffac0ae20c}{p}} = Process(target=\mbox{\hyperlink{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}{export\+\_\+sensors\+\_\+to\+\_\+excel}})
+\item 
+\mbox{\hyperlink{namespaceSensors_1_1sensors_ac44f433897b048603fe594cb411f1050}{sensors\+\_\+info}} = T\+X\+\_\+\+Pixhawk\+\_\+telem.\+read\+\_\+information()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+sensors\+: reading data out of sensors of the vehicle to sql server using telemetry class 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}\label{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}} 
+\index{Sensors.sensors@{Sensors.sensors}!export\_sensors\_to\_excel@{export\_sensors\_to\_excel}}
+\index{export\_sensors\_to\_excel@{export\_sensors\_to\_excel}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{export\_sensors\_to\_excel()}{export\_sensors\_to\_excel()}}
+{\footnotesize\ttfamily def Sensors.\+sensors.\+export\+\_\+sensors\+\_\+to\+\_\+excel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+this function runs as a parallel process in sensors module. 
+
+Exports the sensors sql table to xlsx format using sql\+\_\+to\+\_\+excel function in sql\+\_\+config (possible to change to csv) 
+
+Definition at line 34 of file sensors.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \textcolor{keyword}{def }\mbox{\hyperlink{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}{export\_sensors\_to\_excel}}():}
+\DoxyCodeLine{35     conn, cursor = connect\_to\_db()}
+\DoxyCodeLine{36     \textcolor{keywordflow}{while} \textcolor{keyword}{True}:}
+\DoxyCodeLine{37         sql\_to\_excel(conn, \textcolor{stringliteral}{"SensorsInfo"}, \textcolor{stringliteral}{"sql/SensorsInfo.xlsx"})}
+\DoxyCodeLine{38         time.sleep(1)}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a3626b96a0a13f784ca0d397d8acebf14}\label{namespaceSensors_1_1sensors_a3626b96a0a13f784ca0d397d8acebf14}} 
+\index{Sensors.sensors@{Sensors.sensors}!action@{action}}
+\index{action@{action}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+action}
+
+
+
+Definition at line 22 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a7f212bc965f84611a37c15e31eabad9e}\label{namespaceSensors_1_1sensors_a7f212bc965f84611a37c15e31eabad9e}} 
+\index{Sensors.sensors@{Sensors.sensors}!args@{args}}
+\index{args@{args}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definition at line 28 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a8810847e1c26c911d7b96f0a0ddc996a}\label{namespaceSensors_1_1sensors_a8810847e1c26c911d7b96f0a0ddc996a}} 
+\index{Sensors.sensors@{Sensors.sensors}!conn@{conn}}
+\index{conn@{conn}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{conn}{conn}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+conn}
+
+
+
+Definition at line 43 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_af9d5c54049949cbd35f968c9f366691c}\label{namespaceSensors_1_1sensors_af9d5c54049949cbd35f968c9f366691c}} 
+\index{Sensors.sensors@{Sensors.sensors}!cursor@{cursor}}
+\index{cursor@{cursor}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{cursor}{cursor}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+cursor}
+
+
+
+Definition at line 43 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a7b2404c0d4841b1169d22635299d14af}\label{namespaceSensors_1_1sensors_a7b2404c0d4841b1169d22635299d14af}} 
+\index{Sensors.sensors@{Sensors.sensors}!help@{help}}
+\index{help@{help}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{help}{help}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+help}
+
+
+
+Definition at line 23 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a34c7b4daeac196a798751833062fd862}\label{namespaceSensors_1_1sensors_a34c7b4daeac196a798751833062fd862}} 
+\index{Sensors.sensors@{Sensors.sensors}!HISTORY\_WRITE@{HISTORY\_WRITE}}
+\index{HISTORY\_WRITE@{HISTORY\_WRITE}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{HISTORY\_WRITE}{HISTORY\_WRITE}}
+{\footnotesize\ttfamily int Sensors.\+sensors.\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+W\+R\+I\+TE = 10}
+
+
+
+Definition at line 30 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_ab4622d023bc5f3c2214f5c7f2a5d6499}\label{namespaceSensors_1_1sensors_ab4622d023bc5f3c2214f5c7f2a5d6499}} 
+\index{Sensors.sensors@{Sensors.sensors}!module\_path@{module\_path}}
+\index{module\_path@{module\_path}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{module\_path}{module\_path}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+module\+\_\+path = os.\+path.\+abspath(os.\+getcwd())}
+
+
+
+Definition at line 13 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_aa1f6c277306230be6fa91dffac0ae20c}\label{namespaceSensors_1_1sensors_aa1f6c277306230be6fa91dffac0ae20c}} 
+\index{Sensors.sensors@{Sensors.sensors}!p@{p}}
+\index{p@{p}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{p}{p}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+p = Process(target=\mbox{\hyperlink{namespaceSensors_1_1sensors_a762f0ba9340d0e5dee0498d39002b2b7}{export\+\_\+sensors\+\_\+to\+\_\+excel}})}
+
+
+
+Definition at line 54 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a1cbaa80dc1c303a10c8dc766e1368a59}\label{namespaceSensors_1_1sensors_a1cbaa80dc1c303a10c8dc766e1368a59}} 
+\index{Sensors.sensors@{Sensors.sensors}!parser@{parser}}
+\index{parser@{parser}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+parser = argparse.\+Argument\+Parser(description=\char`\"{}Drone detection project\char`\"{})}
+
+
+
+action chooses true or false hardcoded for the arguments of this module 
+
+
+
+Definition at line 21 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_ac44f433897b048603fe594cb411f1050}\label{namespaceSensors_1_1sensors_ac44f433897b048603fe594cb411f1050}} 
+\index{Sensors.sensors@{Sensors.sensors}!sensors\_info@{sensors\_info}}
+\index{sensors\_info@{sensors\_info}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{sensors\_info}{sensors\_info}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+sensors\+\_\+info = T\+X\+\_\+\+Pixhawk\+\_\+telem.\+read\+\_\+information()}
+
+
+
+Definition at line 59 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_a5cde740b30e8ea4df588f10dac438c4a}\label{namespaceSensors_1_1sensors_a5cde740b30e8ea4df588f10dac438c4a}} 
+\index{Sensors.sensors@{Sensors.sensors}!TX\_Pixhawk\_telem@{TX\_Pixhawk\_telem}}
+\index{TX\_Pixhawk\_telem@{TX\_Pixhawk\_telem}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{TX\_Pixhawk\_telem}{TX\_Pixhawk\_telem}}
+{\footnotesize\ttfamily Sensors.\+sensors.\+T\+X\+\_\+\+Pixhawk\+\_\+telem = \mbox{\hyperlink{classSensors_1_1telemetry_1_1Telemetry}{telemetry.\+Telemetry}}(\mbox{\hyperlink{namespaceSensors_1_1sensors_af08e5e1a088abcb3bbdd1601b1d19d2e}{vehicle\+Connected}})}
+
+
+
+Definition at line 51 of file sensors.\+py.
+
+\mbox{\Hypertarget{namespaceSensors_1_1sensors_af08e5e1a088abcb3bbdd1601b1d19d2e}\label{namespaceSensors_1_1sensors_af08e5e1a088abcb3bbdd1601b1d19d2e}} 
+\index{Sensors.sensors@{Sensors.sensors}!vehicleConnected@{vehicleConnected}}
+\index{vehicleConnected@{vehicleConnected}!Sensors.sensors@{Sensors.sensors}}
+\doxysubsubsection{\texorpdfstring{vehicleConnected}{vehicleConnected}}
+{\footnotesize\ttfamily bool Sensors.\+sensors.\+vehicle\+Connected = True}
+
+
+
+Definition at line 48 of file sensors.\+py.
+

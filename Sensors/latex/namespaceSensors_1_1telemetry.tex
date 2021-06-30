@@ -1,0 +1,45 @@
+\hypertarget{namespaceSensors_1_1telemetry}{}\doxysection{Sensors.\+telemetry Namespace Reference}
+\label{namespaceSensors_1_1telemetry}\index{Sensors.telemetry@{Sensors.telemetry}}
+
+
+telemtry\+: class implementation for reading data out of sensors of the vehicle. optional to connect either to sitl simulation or the real vehicle with uart  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classSensors_1_1telemetry_1_1SensorsInfo}{Sensors\+Info}}
+\begin{DoxyCompactList}\small\item\em class for sensors info which saves the needed telem info. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classSensors_1_1telemetry_1_1Telemetry}{Telemetry}}
+\begin{DoxyCompactList}\small\item\em class to hold dronekit A\+PI vehicle handler and connect to it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespaceSensors_1_1telemetry_a4d0d80317f800fdd25cfedf43e056651}{check\+\_\+none}} (val)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+telemtry\+: class implementation for reading data out of sensors of the vehicle. optional to connect either to sitl simulation or the real vehicle with uart 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceSensors_1_1telemetry_a4d0d80317f800fdd25cfedf43e056651}\label{namespaceSensors_1_1telemetry_a4d0d80317f800fdd25cfedf43e056651}} 
+\index{Sensors.telemetry@{Sensors.telemetry}!check\_none@{check\_none}}
+\index{check\_none@{check\_none}!Sensors.telemetry@{Sensors.telemetry}}
+\doxysubsubsection{\texorpdfstring{check\_none()}{check\_none()}}
+{\footnotesize\ttfamily def Sensors.\+telemetry.\+check\+\_\+none (\begin{DoxyParamCaption}\item[{}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 12 of file telemetry.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12 \textcolor{keyword}{def }\mbox{\hyperlink{namespaceSensors_1_1telemetry_a4d0d80317f800fdd25cfedf43e056651}{check\_none}}(val):}
+\DoxyCodeLine{13     \textcolor{keywordflow}{if} val \textcolor{keywordflow}{is} \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{14         \textcolor{keywordflow}{return} -\/1}
+\DoxyCodeLine{15     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{16         \textcolor{keywordflow}{return} val}
+\DoxyCodeLine{17 }
+
+\end{DoxyCode}
