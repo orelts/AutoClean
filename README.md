@@ -1,7 +1,7 @@
 # AutoClean
 
 <h1 align="center">
-  <img src="./assets/Driver.gif">
+  <img src="./assets/Driver.gif" height="200" width="200">
 </h1>
   <p align="center">
     <a href="mailto:oreltsioni@gmail.com">Orel Tsioni</a> •
