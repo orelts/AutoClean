@@ -1,7 +1,7 @@
 # AutoClean
 
 <h1 align="center">
-  <img src="./assets/Driver.gif" height="300" width="300">
+  <img src="./assets/logo170x134.png" height="400" width="400">
 </h1>
   <p align="center">
     <a href="mailto:oreltsioni@gmail.com">Orel Tsioni</a> •
@@ -47,7 +47,7 @@ This module role is to be the mediator between groundstation and the world clean
  <img src="./assets/Crane.gif" height="300" width="300">
 </p>
 
-The world Cleaner uses a 3D printed claw with 3 axis. Each of the 3 axis is moving using 2 servo motors which conrolled by lynxmotion controller. the linxmotion gets commands from the crane sql table that is on nvidia TX2
+The world Cleaner uses a 3D printed claw with 3 axis. Each of the 3 axis is moving using 2 servo motors which conrolled by lynxmotion controller. Lynxmotion gets commands from the crane sql table that is on nvidia TX2
 
 ## Further Work
-Implement Computer Vision based module for navigation controll. Also, implement and add a CNN for Trash classification and recognition for Crane operation.
+Implement Computer Vision based module for navigation control. Also, implement and add a CNN for Trash classification and recognition for Crane operation.
