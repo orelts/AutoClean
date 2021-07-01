@@ -1,7 +1,7 @@
 # AutoClean
 
 <h1 align="center">
-  <img src="./assets/logo170x134.png" height="400" width="400">
+  <img src="./assets/logo170x134.png" height="250" width="250">
 </h1>
   <p align="center">
     <a href="mailto:oreltsioni@gmail.com">Orel Tsioni</a> •
