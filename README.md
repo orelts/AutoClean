@@ -29,10 +29,8 @@ the sql server is Azure SQL Edge which runs on the ubuntu of the TX2 nvidia devi
 ## Sensors
 This module is all about getting the info from the pixhawk(sensors device) and deliver it to the sql server
 ## Driver
-<p
- <h1 align="center">
-  <img src="./assets/Driver.gif" height="300" width="300">
- </h1>
+<p align="center">
+ <img src="./assets/Driver.gif" height="300" width="300">
 </p>
 The driver modules gets a string of driving instructions which he can parse. those instructions are coming from the instructions list in the sql db
 this way we can control the driving while creating the base for future module to send the instructions itself.
@@ -40,10 +38,8 @@ Driver uses 4 motors that gets command from sabertooth controller 2x12 which get
 ## Communication
 This module role is to be the mediator between groundstation and the world cleaner. also if needed to communicate between devices on robot itself.
 ## Crane
-<p
- <h1 align="center">
-   <img src="./assets/Crane.gif" height="300" width="300">
- </h1>
+<p align="center">
+ <img src="./assets/Crane.gif" height="300" width="300">
 </p>
 The world Cleaner uses a 3D printed claw with 3 axis. Each of the 3 axis is moving using 2 servo motors which conrolled by lynxmotion controller. the linxmotion gets commands from the crane sql table that is on nvidia TX2
 ## Further Work
