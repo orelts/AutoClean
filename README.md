@@ -8,12 +8,13 @@
     <a href="mailto:itamar.meyer@campus.technion.ac.il">Itamar Meyer</a>
   </p>
 
-Welcome to AutoClean. Number 1 autonomous world cleaner in the world
 in this project we implemented the basic infrastructure for the world cleaner robot. 
-this was done by different modules we will elaborate about.
+This robot can drive with given speed and rotate in different angles. Also, he can lift trash using 3 axis arm that moves with Servo motors. The driving operations are implemented using basic control that is needed for more accurate angle rotation.
+This project includes few modules that act independently that we will elaborate about.
 
 
 - [AutoClean](#autoclean)
+  * [Architecture](#architecture)	
   * [SQL database](#sql-database)
   * [Sensors](#sensors)
   * [Driver](#driver)
@@ -21,6 +22,16 @@ this was done by different modules we will elaborate about.
   * [Crane](#crane)
   * [Further Work](#further-work)
 
+
+## Architecture
+
+<p align="center">
+ <img src="./assets/Architecture.png" height="500" width="500">
+</p>
+
+The independence of each modules is based on the fact  each of this module know only the center database.
+The communication between modules is done through this Database. for instance driver uses sensors table info for driving control and sensors module update this SQL table.
+The non-red modules are part of [Further Work](#further-work) 
 
 ## SQL database
 The center of all data transmission. all modules commuinicate with the sql server by writing and reading from it when needed.
